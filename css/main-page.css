@@ -175,9 +175,11 @@
     padding: 72px 0;
   }
 
-  .probleme h2 {
+   .probleme h2 {
     font-size: 1.9rem;
-    max-width: 20ch;
+    max-width: 40ch;
+    margin: 0 auto;
+    text-align: center;
   }
 
   .probleme-grid {
@@ -187,9 +189,10 @@
     gap: 32px;
   }
 
-  .probleme-grid div {
+    .probleme-grid div {
     border-top: 2px solid var(--or);
     padding-top: 16px;
+    text-align: center;
   }
 
   .probleme-grid p {
@@ -202,10 +205,12 @@
     padding: 80px 0;
   }
 
-  .comment h2 {
+    .comment h2 {
     font-size: 1.9rem;
     color: var(--indigo);
-    max-width: 18ch;
+    max-width: 36ch;
+    margin: 0 auto;
+    text-align: center;
   }
 
   .comment-cols {
@@ -215,11 +220,12 @@
     gap: 40px;
   }
 
-  .col-card {
+    .col-card {
     background: white;
     border-radius: 6px;
     padding: 32px;
     border: 1px solid #e8ddc8;
+    text-align: center;
   }
 
   .col-card h3 {
