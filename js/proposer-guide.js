@@ -573,15 +573,31 @@ document.addEventListener("DOMContentLoaded", () => {
   ajouterModule();
 
   // Récupère le nom du membre connecté (pour l'afficher comme auteur)
+    /* =========================
+     ACCÈS RÉSERVÉ AUX MEMBRES
+  ========================= */
+
   (async () => {
-    if (typeof supabaseClient === "undefined") return;
     try {
+      if (typeof supabaseClient === "undefined") throw new Error("Supabase indisponible");
+
       const { data: { session } } = await supabaseClient.auth.getSession();
-      if (!session) return;
+
+      if (!session) {
+        window.location.replace("inscription.html?redirection=proposer-guide.html");
+        return;
+      }
+
+      // Récupère le nom du membre (affiché comme auteur du guide)
       const { data: profil } = await supabaseClient
         .from("profils").select("nom").eq("id", session.user.id).single();
       if (profil && profil.nom) nomAuteur = profil.nom;
-    } catch (e) {}
+
+    } catch (e) {
+      // Hors-ligne ou erreur : on affiche la page ; l'envoi redemandera de se connecter
+    }
+
+    document.body.classList.remove("verification-acces");
   })();
 
 });
