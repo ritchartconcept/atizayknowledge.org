@@ -56,5 +56,5 @@ document.getElementById('form-inscription').addEventListener('submit', async fun
     return;
   }
 
-  window.location.href = "espace-membre.html";
+ window.location.href = destinationApresConnexion();
 });
