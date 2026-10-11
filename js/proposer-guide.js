@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // false = la proposition reste dans ce navigateur (test)
   // true  = elle est envoyée dans la table "propositions" de Supabase
-  const UTILISER_SUPABASE = true;
+  const UTILISER_SUPABASE = false;
 
   // Les types de blocs et le nom affiché sur chaque bloc
   const LIBELLES_BLOCS = {
@@ -572,9 +572,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Premier module affiché dès l'ouverture de la page
   ajouterModule();
 
-  // Récupère le nom du membre connecté (pour l'afficher comme auteur)
-    /* =========================
+  /* =========================
      ACCÈS RÉSERVÉ AUX MEMBRES
+     Pas connecté -> envoyé sur la page d'inscription, puis ramené ici.
   ========================= */
 
   (async () => {
@@ -584,8 +584,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const { data: { session } } = await supabaseClient.auth.getSession();
 
       if (!session) {
+        // replace() : le bouton "retour" du navigateur ne crée pas de boucle
         window.location.replace("inscription.html?redirection=proposer-guide.html");
-        return;
+        return;   // la page reste cachée pendant la redirection
       }
 
       // Récupère le nom du membre (affiché comme auteur du guide)
@@ -597,6 +598,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Hors-ligne ou erreur : on affiche la page ; l'envoi redemandera de se connecter
     }
 
+    // Vérification terminée : on montre la page
     document.body.classList.remove("verification-acces");
   })();
 
