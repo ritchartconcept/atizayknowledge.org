@@ -32,5 +32,5 @@ document.getElementById('form-connexion').addEventListener('submit', async funct
   }
 
   // Succès : le spinner reste affiché jusqu'au changement de page
-  window.location.href = "espace-membre.html";
+ window.location.href = destinationApresConnexion();
 });
