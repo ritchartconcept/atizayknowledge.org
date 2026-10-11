@@ -754,3 +754,12 @@ html[data-theme="dark"] {
       gap: 8px;
     }
   }
+
+body.verification-acces .page-proposer {
+  visibility: hidden;
+  animation: reveler-page 0s 4s forwards;
+}
+
+@keyframes reveler-page {
+  to { visibility: visible; }
+}
