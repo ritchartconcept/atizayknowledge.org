@@ -19,11 +19,9 @@
       <a href="guides.html">Guides</a>
       <a href="espace-membre.html">Mon espace</a>
       <button id="toggle-theme" class="btn-theme" aria-label="Changer de thème">
-        <!-- Lune : visible en mode clair -->
         <svg class="icone-lune" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
         </svg>
-        <!-- Soleil : visible en mode sombre -->
         <svg class="icone-soleil" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <circle cx="12" cy="12" r="4"/>
           <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
@@ -51,22 +49,11 @@
     <div class="champ">
       <label for="guide-categorie">Catégorie</label>
       <select id="guide-categorie">
-        <option value="techniques-base">Techniques de base en dessin</option>
-        <option value="storyboard">storyboard</option>
-        <option value="contexte-local">Trouver ses outilles</option>
+        <option value="techniques">Techniques</option>
+        <option value="contexte-local">Contexte local</option>
         <option value="histoire">Histoire de l'art</option>
-        <option value="business">Vendre son art</option>
+        <option value="business">Business</option>
         <option value="portraits">Portrait</option>
-        <option value="bande-dessiner">Bande dessiner</option>
-        <option value="anatomy">Anatomy humaine</option>
-        <option value="techniques-couleur">Colorimetrie</option>
-        <option value="design">design</option>
-        <option value="concept-art">Concept art</option>
-        <option value="photographie">Photographie</option>
-        <option value="videographie">Videographie</option>
-        <option value="game-design">Game design</option>
-        <option value="game-dev">Game-dev</option>
-        <option value="fixer-prix">Fixer un prix</option>
       </select>
     </div>
 
@@ -91,6 +78,7 @@
 
   <!-- Actions -->
   <div class="actions-finales">
+    <span class="statut-brouillon" id="statut-brouillon"></span>
     <button type="button" class="btn btn-secondaire" id="btn-apercu">Voir comme un lecteur</button>
     <button type="button" class="btn btn-principal" id="btn-soumettre">Soumettre ma proposition</button>
   </div>
@@ -105,8 +93,6 @@
 <script src="js/supabase-client.js"></script>
 <script src="js/proposer-guide.js"></script>
 <script src="js/theme.js"></script>
-
-
 
 </body>
 </html>
