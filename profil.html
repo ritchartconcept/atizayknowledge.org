@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profil — Atizay Knowledge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="assets/icon/favicon_io/android-chrome-512x512.png" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/profil.css">
+</head>
+
+<body>
+
+<div class="wrap">
+  <header>
+    <a href="index.html" class="logo">Atizay Knowledge</a>
+    <nav>
+      <a href="guides.html">Guides</a>
+      <a href="fondateurs.html">Fondateurs</a>
+      <a href="espace-membre.html">Mon espace</a>
+      <button id="toggle-theme" class="btn-theme" aria-label="Changer de thème">
+        <svg class="icone-lune" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+        </svg>
+        <svg class="icone-soleil" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </nav>
+  </header>
+</div>
+
+<main class="wrap page-profil">
+
+  <!-- ===== État : chargement ===== -->
+  <p class="etat" id="etat-chargement">Chargement du profil...</p>
+
+  <!-- ===== État : profil introuvable ou privé ===== -->
+  <div class="etat etat-introuvable" id="etat-introuvable" hidden>
+    <h1>Profil introuvable</h1>
+    <p id="etat-introuvable-texte">Ce profil n'existe pas ou n'est pas public.</p>
+    <a href="guides.html" class="btn btn-principal">← Retour aux guides</a>
+  </div>
+
+  <!-- ===== Le profil (rempli par js/profil.js) ===== -->
+  <div id="profil-contenu" hidden>
+
+    <!-- Message de confirmation après une modification -->
+    <div class="message" id="message-global" hidden></div>
+
+    <div class="profil-entete">
+      <div class="profil-banniere"></div>
+
+      <section class="profil-carte">
+        <div class="profil-avatar" id="profil-avatar"></div>
+
+        <div class="profil-haut">
+          <div class="profil-identite">
+            <h1 id="profil-nom"></h1>
+            <div class="profil-pastilles">
+              <span class="pastille pastille-discipline" id="profil-discipline"></span>
+              <span class="pastille pastille-fondateur" id="profil-fondateur" hidden></span>
+              <span class="pastille pastille-visibilite" id="profil-visibilite" hidden></span>
+            </div>
+          </div>
+
+          <div class="profil-actions">
+            <a class="btn btn-secondaire" id="profil-portfolio" target="_blank" rel="noopener noreferrer" hidden>Voir le portfolio →</a>
+            <button type="button" class="btn btn-principal" id="btn-modifier" hidden>Modifier mon profil</button>
+          </div>
+        </div>
+
+        <p class="profil-bio" id="profil-bio"></p>
+        <p class="profil-meta" id="profil-meta"></p>
+
+        <p class="note-prive" id="note-prive" hidden>
+          Ton profil est privé : toi seul peux le voir. Coche « Rendre mon profil public » dans « Modifier mon profil » pour que les autres artistes puissent le consulter.
+        </p>
+      </section>
+    </div>
+
+    <!-- ===== Formulaire de modification (visible seulement pour son propre profil) ===== -->
+    <section class="carte-edition" id="profil-edition" hidden>
+      <h2>Modifier mon profil</h2>
+
+      <form id="form-profil" novalidate>
+
+        <div class="champ">
+          <label for="champ-nom">Nom complet</label>
+          <input type="text" id="champ-nom" maxlength="60" autocomplete="name">
+        </div>
+
+        <div class="champ">
+          <label for="champ-discipline">Discipline principale</label>
+          <select id="champ-discipline"></select>
+        </div>
+
+        <div class="champ">
+          <label for="champ-bio">Bio <span class="compteur" id="compteur-bio">0 / 300</span></label>
+          <textarea id="champ-bio" rows="4" maxlength="300" placeholder="Présente-toi en quelques phrases : ton parcours, ce que tu fais, ce que tu aimes."></textarea>
+        </div>
+
+        <div class="champ">
+          <label for="champ-portfolio">Lien de ton portfolio</label>
+          <input type="url" id="champ-portfolio" placeholder="https://mon-portfolio.com" autocomplete="url">
+        </div>
+
+        <label class="case">
+          <input type="checkbox" id="champ-public">
+          <span>
+            <strong>Rendre mon profil public</strong>
+            Tout le monde pourra voir ton nom, ta discipline, ta bio, ton portfolio et tes guides publiés. Ton adresse email n'est jamais affichée.
+          </span>
+        </label>
+
+        <div class="message" id="message-profil" hidden></div>
+
+        <div class="actions-edition">
+          <button type="button" class="btn btn-secondaire" id="btn-annuler">Annuler</button>
+          <button type="submit" class="btn btn-principal" id="btn-enregistrer">Enregistrer</button>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- ===== Chiffres ===== -->
+    <section class="stats-profil">
+      <div class="stat">
+        <div class="stat-valeur" id="stat-guides">0</div>
+        <div class="stat-libelle">Guides publiés</div>
+      </div>
+      <div class="stat">
+        <div class="stat-valeur" id="stat-vues">0</div>
+        <div class="stat-libelle">Vues cumulées</div>
+      </div>
+    </section>
+
+    <!-- ===== Guides publiés ===== -->
+    <section class="bloc-guides" id="bloc-guides">
+      <h2>Guides publiés</h2>
+      <div class="liste-guides" id="liste-guides"></div>
+      <p class="guides-vide" id="guides-vide" hidden></p>
+    </section>
+
+  </div>
+
+  <footer>
+    <span>Atizay Knowledge</span>
+    <span>Contact · À propos</span>
+  </footer>
+
+</main>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/profil.js"></script>
+<script src="js/theme.js"></script>
+
+</body>
+</html>
