@@ -1,680 +1,163 @@
-:root {
-  --indigo: #1B2A4C;
-  --corail: #E63946;
-  --sable: #FAF3E7;
-  --or: #E9B44C;
-  --encre: #1A1A1A;
-  --vert: #3A7D5C;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* Sans cette règle, un élément avec l'attribut "hidden" resterait visible
-   dès qu'une règle CSS lui donne un "display". */
-[hidden] { display: none !important; }
-
-body {
-  font-family: 'Work Sans', sans-serif;
-  color: var(--encre);
-  background: var(--sable);
-  line-height: 1.6;
-}
-
-h1, h2, h3 {
-  font-family: 'Fraunces', serif;
-  line-height: 1.15;
-}
-
-.wrap {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-/* =========================
-   HEADER
-========================= */
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 22px 0;
-  border-bottom: 1px solid #e8ddc8;
-}
-
-.logo {
-  font-family: 'Fraunces', serif;
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--indigo);
-  text-decoration: none;
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  gap: 26px;
-}
-
-nav a {
-  color: var(--encre);
-  text-decoration: none;
-  font-size: 0.95rem;
-}
-
-nav a:hover { color: var(--corail); }
-
-.btn-theme {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  background: transparent;
-  border: 1.5px solid var(--indigo);
-  border-radius: 50%;
-  color: var(--indigo);
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.btn-theme:hover {
-  background: rgba(27,42,76,0.08);
-  transform: rotate(15deg);
-}
-
-.btn-theme svg {
-  width: 19px;
-  height: 19px;
-  display: block;
-}
-
-.btn-theme .icone-soleil { display: none; }
-html[data-theme="dark"] .btn-theme .icone-lune { display: none; }
-html[data-theme="dark"] .btn-theme .icone-soleil { display: block; }
-
-/* =========================
-   PAGE
-========================= */
-
-.page-profil {
-  padding-top: 40px;
-  padding-bottom: 8px;
-}
-
-.etat {
-  padding: 80px 0;
-  text-align: center;
-  color: #777;
-}
-
-.etat-introuvable h1 {
-  font-size: 1.9rem;
-  color: var(--indigo);
-}
-
-.etat-introuvable p {
-  margin: 10px 0 26px;
-}
-
-/* =========================
-   BOUTONS
-========================= */
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 11px 18px;
-  border-radius: 6px;
-  font-family: 'Work Sans', sans-serif;
-  font-size: 0.92rem;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.btn-principal {
-  background: var(--corail);
-  border: 1.5px solid var(--corail);
-  color: white;
-}
-
-.btn-principal:hover {
-  background: #c92f3b;
-  border-color: #c92f3b;
-}
-
-.btn-secondaire {
-  background: white;
-  border: 1.5px solid var(--indigo);
-  color: var(--indigo);
-}
-
-.btn-secondaire:hover {
-  background: var(--indigo);
-  color: white;
-}
-
-/* Bouton en cours de chargement */
-.btn-principal:disabled {
-  opacity: 0.85;
-  cursor: not-allowed;
-}
-
-.btn-principal:disabled:hover {
-  background: var(--corail);
-  border-color: var(--corail);
-}
-
-.btn-principal.chargement::before {
-  content: "";
-  flex-shrink: 0;
-  width: 16px;
-  height: 16px;
-  margin-right: 10px;
-  border: 2.5px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: tourner 0.7s linear infinite;
-}
-
-@keyframes tourner {
-  to { transform: rotate(360deg); }
-}
-
-/* =========================
-   MESSAGES
-========================= */
-
-.message {
-  margin-bottom: 18px;
-  padding: 12px 16px;
-  border-radius: 6px;
-  font-size: 0.9rem;
-}
-
-.message.succes {
-  background: #e8f4ed;
-  border: 1px solid #a9cfb8;
-  color: #286342;
-}
-
-.message.erreur {
-  background: #fbe9eb;
-  border: 1px solid #e9aeb5;
-  color: #a62835;
-}
-
-/* =========================
-   CARTE DE PROFIL
-========================= */
-
-.profil-banniere {
-  height: 120px;
-  background: var(--indigo);
-  border-radius: 14px 14px 0 0;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Grand cercle doré décoratif */
-.profil-banniere::before {
-  content: "";
-  position: absolute;
-  top: -70px;
-  right: -40px;
-  width: 230px;
-  height: 230px;
-  border-radius: 50%;
-  background: var(--or);
-  opacity: 0.28;
-}
-
-.profil-carte {
-  background: white;
-  border: 1px solid #e8ddc8;
-  border-top: none;
-  border-radius: 0 0 14px 14px;
-  padding: 0 32px 30px;
-}
-
-.profil-avatar {
-  width: 96px;
-  height: 96px;
-  margin-top: -48px;
-  border: 5px solid white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Fraunces', serif;
-  font-weight: 700;
-  font-size: 2rem;
-  color: white;
-  position: relative;
-}
-
-/* Quatre couleurs d'avatar, choisies selon l'identifiant du membre */
-.couleur-0 { background: #b8861f; }
-.couleur-1 { background: var(--indigo); }
-.couleur-2 { background: var(--corail); }
-.couleur-3 { background: var(--vert); }
-
-.profil-haut {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 14px;
-}
-
-.profil-identite h1 {
-  font-size: 1.9rem;
-  color: var(--indigo);
-}
-
-.profil-pastilles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.pastille {
-  padding: 3px 12px;
-  border-radius: 20px;
-  font-size: 0.78rem;
-  font-weight: 600;
-}
-
-.pastille-discipline {
-  background: #fdf1de;
-  color: #8a5d12;
-}
-
-.pastille-fondateur {
-  background: var(--indigo);
-  color: white;
-}
-
-.pastille-visibilite {
-  background: #eee8da;
-  color: #6b6555;
-}
-
-.pastille-visibilite.publique {
-  background: #e2f0e8;
-  color: var(--vert);
-}
-
-.profil-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.profil-bio {
-  margin-top: 20px;
-  max-width: 62ch;
-  white-space: pre-line;
-}
-
-/* Bio non remplie (affichée seulement sur son propre profil) */
-.profil-bio.vide {
-  color: #999;
-  font-style: italic;
-}
-
-.profil-meta {
-  margin-top: 14px;
-  font-size: 0.85rem;
-  color: #888;
-}
-
-.note-prive {
-  margin-top: 16px;
-  padding: 12px 16px;
-  background: #fdf1de;
-  border: 1px solid #ecd49a;
-  border-radius: 8px;
-  font-size: 0.88rem;
-  color: #6b5218;
-}
-
-/* =========================
-   FORMULAIRE DE MODIFICATION
-========================= */
-
-.carte-edition {
-  margin-top: 24px;
-  padding: 28px;
-  background: white;
-  border: 1px solid #e8ddc8;
-  border-radius: 14px;
-}
-
-.carte-edition h2 {
-  font-size: 1.35rem;
-  color: var(--indigo);
-  margin-bottom: 20px;
-}
-
-.champ {
-  margin-bottom: 20px;
-}
-
-.champ label {
-  display: block;
-  margin-bottom: 7px;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-.compteur {
-  float: right;
-  font-weight: 400;
-  font-size: 0.8rem;
-  color: #888;
-}
-
-.champ input,
-.champ select,
-.champ textarea {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1.5px solid #d8cdb4;
-  border-radius: 6px;
-  font-family: 'Work Sans', sans-serif;
-  font-size: 0.95rem;
-  color: var(--encre);
-  background: white;
-}
-
-.champ textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.champ input:focus,
-.champ select:focus,
-.champ textarea:focus {
-  outline: none;
-  border-color: var(--corail);
-}
-
-.case {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 22px;
-  padding: 14px 16px;
-  background: #fcf9f2;
-  border: 1px solid #e8ddc8;
-  border-radius: 8px;
-  font-size: 0.88rem;
-  color: #555;
-  cursor: pointer;
-}
-
-.case input {
-  margin-top: 4px;
-  width: 17px;
-  height: 17px;
-  flex-shrink: 0;
-  accent-color: var(--corail);
-}
-
-.case strong {
-  display: block;
-  color: var(--encre);
-  font-size: 0.93rem;
-}
-
-.actions-edition {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-}
-
-/* =========================
-   CHIFFRES
-========================= */
-
-.stats-profil {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 24px;
-}
-
-.stat {
-  padding: 20px 22px;
-  background: white;
-  border: 1px solid #e8ddc8;
-  border-radius: 12px;
-}
-
-.stat-valeur {
-  font-family: 'Fraunces', serif;
-  font-size: 2rem;
-  color: var(--indigo);
-}
-
-.stat-libelle {
-  font-size: 0.85rem;
-  color: #777;
-}
-
-/* =========================
-   GUIDES PUBLIÉS
-========================= */
-
-.bloc-guides {
-  padding-top: 40px;
-}
-
-.bloc-guides h2 {
-  font-size: 1.5rem;
-  color: var(--indigo);
-}
-
-.liste-guides {
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 16px;
-}
-
-.guide-carte {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  background: white;
-  border: 1px solid #e8ddc8;
-  border-radius: 12px;
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.guide-carte:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(27,42,76,0.1);
-}
-
-.guide-carte-cat {
-  font-size: 0.76rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--corail);
-}
-
-.guide-carte h3 {
-  margin-top: 8px;
-  font-size: 1.05rem;
-  color: var(--encre);
-}
-
-.guide-carte-vues {
-  margin-top: auto;
-  padding-top: 14px;
-  font-size: 0.82rem;
-  color: #888;
-}
-
-.guides-vide {
-  margin-top: 20px;
-  padding: 28px;
-  text-align: center;
-  color: #777;
-  border: 1.5px dashed #d8cdb4;
-  border-radius: 12px;
-}
-
-.guides-vide a {
-  color: var(--corail);
-  font-weight: 600;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer {
-  margin-top: 56px;
-  padding: 28px 0 48px;
-  font-size: 0.9rem;
-  color: #666;
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid #e8ddc8;
-}
-
-/* =========================
-   DARK MODE
-========================= */
-
-html[data-theme="dark"] {
-  --sable: #14202E;
-  --encre: #F2ECDD;
-  --indigo: #6C8FC7;
-}
-
-html[data-theme="dark"] body { background: #0F1824; }
-
-html[data-theme="dark"] header,
-html[data-theme="dark"] footer { border-color: #2C3A4A; }
-
-html[data-theme="dark"] .profil-banniere { background: #1B2734; }
-
-html[data-theme="dark"] .profil-carte,
-html[data-theme="dark"] .carte-edition,
-html[data-theme="dark"] .stat,
-html[data-theme="dark"] .guide-carte {
-  background: #1B2734;
-  border-color: #2C3A4A;
-}
-
-html[data-theme="dark"] .profil-avatar { border-color: #1B2734; }
-
-/* Texte sombre sur fond clair : on fixe la couleur */
-html[data-theme="dark"] .profil-avatar { color: #0F1824; }
-
-html[data-theme="dark"] .pastille-fondateur {
-  background: var(--or);
-  color: #0F1824;
-}
-
-html[data-theme="dark"] .pastille-discipline {
-  background: #3a2f1a;
-  color: #e9b44c;
-}
-
-html[data-theme="dark"] .pastille-visibilite {
-  background: #2C3A4A;
-  color: #B9B3A5;
-}
-
-html[data-theme="dark"] .pastille-visibilite.publique {
-  background: #1f3a2d;
-  color: #7fcf9f;
-}
-
-html[data-theme="dark"] .note-prive {
-  background: #3a2f1a;
-  border-color: #5c4a22;
-  color: #e9b44c;
-}
-
-html[data-theme="dark"] .champ input,
-html[data-theme="dark"] .champ select,
-html[data-theme="dark"] .champ textarea {
-  background: #14202E;
-  border-color: #394858;
-  color: var(--encre);
-}
-
-html[data-theme="dark"] .case {
-  background: #14202E;
-  border-color: #394858;
-  color: #B9B3A5;
-}
-
-html[data-theme="dark"] .btn-secondaire {
-  background: #1B2734;
-  border-color: #394858;
-  color: var(--encre);
-}
-
-html[data-theme="dark"] .btn-secondaire:hover {
-  background: var(--indigo);
-  color: #0F1824;
-}
-
-html[data-theme="dark"] .profil-meta,
-html[data-theme="dark"] .stat-libelle,
-html[data-theme="dark"] .compteur,
-html[data-theme="dark"] .guide-carte-vues,
-html[data-theme="dark"] footer { color: #9ca8b5; }
-
-html[data-theme="dark"] .guides-vide { border-color: #394858; color: #9ca8b5; }
-
-html[data-theme="dark"] .message.succes {
-  background: #1f3a2d;
-  border-color: #2f5a44;
-  color: #7fcf9f;
-}
-
-html[data-theme="dark"] .message.erreur {
-  background: #3d2227;
-  border-color: #6b3039;
-  color: #f0a3ac;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 640px) {
-  .profil-carte { padding: 0 20px 24px; }
-  .carte-edition { padding: 20px; }
-  .profil-actions { width: 100%; }
-  .profil-actions .btn { flex: 1; }
-  .actions-edition .btn { flex: 1; }
-
-  nav a { display: none; }
-
-  footer {
-    flex-direction: column;
-    gap: 8px;
-  }
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profil — Atizay Knowledge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="assets/icon/favicon_io/android-chrome-512x512.png" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/profils.css">
+</head>
+
+<body>
+
+<div class="wrap">
+  <header>
+    <a href="index.html" class="logo">Atizay Knowledge</a>
+    <nav>
+      <a href="guides.html">Guides</a>
+      <a href="fondateurs.html">Fondateurs</a>
+      <a href="espace-membre.html">Mon espace</a>
+      <button id="toggle-theme" class="btn-theme" aria-label="Changer de thème">
+        <svg class="icone-lune" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+        </svg>
+        <svg class="icone-soleil" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </nav>
+  </header>
+</div>
+
+<main class="wrap page-profil">
+
+  <!-- ===== État : chargement ===== -->
+  <p class="etat" id="etat-chargement">Chargement du profil...</p>
+
+  <!-- ===== État : profil introuvable ou privé ===== -->
+  <div class="etat etat-introuvable" id="etat-introuvable" hidden>
+    <h1>Profil introuvable</h1>
+    <p id="etat-introuvable-texte">Ce profil n'existe pas ou n'est pas public.</p>
+    <a href="guides.html" class="btn btn-principal">← Retour aux guides</a>
+  </div>
+
+  <!-- ===== Le profil (rempli par js/profil.js) ===== -->
+  <div id="profil-contenu" hidden>
+
+    <!-- Message de confirmation après une modification -->
+    <div class="message" id="message-global" hidden></div>
+
+    <div class="profil-entete">
+      <div class="profil-banniere"></div>
+
+      <section class="profil-carte">
+        <div class="profil-avatar" id="profil-avatar"></div>
+
+        <div class="profil-haut">
+          <div class="profil-identite">
+            <h1 id="profil-nom"></h1>
+            <div class="profil-pastilles">
+              <span class="pastille pastille-discipline" id="profil-discipline"></span>
+              <span class="pastille pastille-fondateur" id="profil-fondateur" hidden></span>
+              <span class="pastille pastille-visibilite" id="profil-visibilite" hidden></span>
+            </div>
+          </div>
+
+          <div class="profil-actions">
+            <a class="btn btn-secondaire" id="profil-portfolio" target="_blank" rel="noopener noreferrer" hidden>Voir le portfolio →</a>
+            <button type="button" class="btn btn-principal" id="btn-modifier" hidden>Modifier mon profil</button>
+          </div>
+        </div>
+
+        <p class="profil-bio" id="profil-bio"></p>
+        <p class="profil-meta" id="profil-meta"></p>
+
+        <p class="note-prive" id="note-prive" hidden>
+          Ton profil est privé : toi seul peux le voir. Coche « Rendre mon profil public » dans « Modifier mon profil » pour que les autres artistes puissent le consulter.
+        </p>
+      </section>
+    </div>
+
+    <!-- ===== Formulaire de modification (visible seulement pour son propre profil) ===== -->
+    <section class="carte-edition" id="profil-edition" hidden>
+      <h2>Modifier mon profil</h2>
+
+      <form id="form-profil" novalidate>
+
+        <div class="champ">
+          <label for="champ-nom">Nom complet</label>
+          <input type="text" id="champ-nom" maxlength="60" autocomplete="name">
+        </div>
+
+        <div class="champ">
+          <label for="champ-discipline">Discipline principale</label>
+          <select id="champ-discipline"></select>
+        </div>
+
+        <div class="champ">
+          <label for="champ-bio">Bio <span class="compteur" id="compteur-bio">0 / 300</span></label>
+          <textarea id="champ-bio" rows="4" maxlength="300" placeholder="Présente-toi en quelques phrases : ton parcours, ce que tu fais, ce que tu aimes."></textarea>
+        </div>
+
+        <div class="champ">
+          <label for="champ-portfolio">Lien de ton portfolio</label>
+          <input type="url" id="champ-portfolio" placeholder="https://mon-portfolio.com" autocomplete="url">
+        </div>
+
+        <label class="case">
+          <input type="checkbox" id="champ-public">
+          <span>
+            <strong>Rendre mon profil public</strong>
+            Tout le monde pourra voir ton nom, ta discipline, ta bio, ton portfolio et tes guides publiés. Ton adresse email n'est jamais affichée.
+          </span>
+        </label>
+
+        <div class="message" id="message-profil" hidden></div>
+
+        <div class="actions-edition">
+          <button type="button" class="btn btn-secondaire" id="btn-annuler">Annuler</button>
+          <button type="submit" class="btn btn-principal" id="btn-enregistrer">Enregistrer</button>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- ===== Chiffres ===== -->
+    <section class="stats-profil">
+      <div class="stat">
+        <div class="stat-valeur" id="stat-guides">0</div>
+        <div class="stat-libelle">Guides publiés</div>
+      </div>
+      <div class="stat">
+        <div class="stat-valeur" id="stat-vues">0</div>
+        <div class="stat-libelle">Vues cumulées</div>
+      </div>
+    </section>
+
+    <!-- ===== Guides publiés ===== -->
+    <section class="bloc-guides" id="bloc-guides">
+      <h2>Guides publiés</h2>
+      <div class="liste-guides" id="liste-guides"></div>
+      <p class="guides-vide" id="guides-vide" hidden></p>
+    </section>
+
+  </div>
+
+  <footer>
+    <span>Atizay Knowledge</span>
+    <span>Contact · À propos</span>
+  </footer>
+
+</main>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/profils.js"></script>
+<script src="js/theme.js"></script>
+
+</body>
+</html>
