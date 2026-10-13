@@ -1,7 +1,7 @@
 // ==========================================================================
 // PAGE PROFIL
-//   profils.html            -> ton propre profil (connexion obligatoire), modifiable
-//   profils.html?id=<id>    -> le profil d'un autre membre (visible s'il est public)
+//   profil.html            -> ton propre profil (connexion obligatoire), modifiable
+//   profil.html?id=<id>    -> le profil d'un autre membre (visible s'il est public)
 // Ordre des scripts : supabase-js, supabase-client.js, puis ce fichier.
 // ==========================================================================
 
@@ -104,7 +104,7 @@ function definirChargement(bouton, actif, texte) {
 
 // ---------- ÉTAT DE LA PAGE ----------
 
-let profils = null;      // les données du profil affiché
+let profil = null;      // les données du profil affiché
 let estMoi = false;     // true si c'est ton propre profil
 
 
@@ -130,48 +130,37 @@ async function demarrer() {
     const idDemande = new URLSearchParams(window.location.search).get("id");
 
     // Sans ?id= : on affiche ton propre profil, donc il faut être connecté
-    let idProfils = idDemande;
-    if (!idProfils) {
+    let idProfil = idDemande;
+    if (!idProfil) {
       if (!session) {
         window.location.replace("login.html?redirection=profil.html");
         return;
       }
-      idProfils = session.user.id;
+      idProfil = session.user.id;
     }
 
     // Un identifiant valide ressemble à : 3f2b8c1e-.... (lettres, chiffres et tirets)
-    if (!/^[0-9a-f-]{36}$/i.test(idProfils)) {
+    if (!/^[0-9a-f-]{36}$/i.test(idProfil)) {
       montrerIntrouvable();
       return;
     }
 
-    estMoi = Boolean(session && session.user.id === idProfils);
+    estMoi = Boolean(session && session.user.id === idProfil);
 
     const { data, error } = await supabaseClient
       .from("profils")
       .select("id, nom, discipline, bio, portfolio_url, profil_public, est_fondateur, rang_fondateur, fondateur_depuis, cree_le")
-      .eq("id", idProfils)
+      .eq("id", idProfil)
       .maybeSingle();
 
     // Pas de ligne = le profil n'existe pas, ou il est privé (la base ne le montre pas)
-    
-if (error) {
-  console.error("Erreur Supabase :", error);
-  montrerIntrouvable(
-    "Erreur de lecture du profil. Ouvre la console du navigateur pour voir le détail."
-  );
-  return;
-}
+    if (error || !data) {
+      if (error) console.error("Lecture du profil impossible :", error);
+      montrerIntrouvable();
+      return;
+    }
 
-if (!data) {
-  console.warn("Aucun profil accessible pour cet identifiant :", idProfils);
-  montrerIntrouvable(
-    "Aucun profil accessible avec cet identifiant. Vérifie qu'il existe et que les règles de visibilité l'autorisent."
-  );
-  return;
-}
-
-    profils = data;
+    profil = data;
     afficherProfil();
 
     $("etat-chargement").hidden = true;
@@ -188,31 +177,31 @@ if (!data) {
 
 // ---------- AFFICHAGE DU PROFIL ----------
 
-function afficherProfils() {
+function afficherProfil() {
 
-  const nom = profils.nom || "Membre";
+  const nom = profil.nom || "Membre";
 
   document.title = nom + " — Atizay Knowledge";
 
   // Avatar
   const avatar = $("profil-avatar");
   avatar.textContent = initiales(nom);
-  avatar.className = "profil-avatar couleur-" + numeroCouleur(profils.id);
+  avatar.className = "profil-avatar couleur-" + numeroCouleur(profil.id);
 
   $("profil-nom").textContent = nom;
-  $("profil-discipline").textContent = LABELS_DISCIPLINES[profils.discipline] || profils.discipline || "Artiste visuel";
+  $("profil-discipline").textContent = LABELS_DISCIPLINES[profil.discipline] || profil.discipline || "Artiste visuel";
 
   // Badge fondateur
   const badge = $("profil-fondateur");
-  if (profils.est_fondateur && profils.rang_fondateur) {
-    badge.textContent = "Contributeur fondateur N° " + String(profils.rang_fondateur).padStart(2, "0");
+  if (profil.est_fondateur && profil.rang_fondateur) {
+    badge.textContent = "Contributeur fondateur N° " + String(profil.rang_fondateur).padStart(2, "0");
     badge.hidden = false;
   } else {
     badge.hidden = true;
   }
 
   // Un fondateur est toujours visible par tous
-  const estVisible = Boolean(profils.profil_public || profils.est_fondateur);
+  const estVisible = Boolean(profil.profil_public || profil.est_fondateur);
 
   // Pastille "public / privé" et note : seulement sur ton propre profil
   const pastille = $("profil-visibilite");
@@ -227,8 +216,8 @@ function afficherProfils() {
 
   // Bio
   const bio = $("profil-bio");
-  if (profils.bio) {
-    bio.textContent = profils.bio;
+  if (profil.bio) {
+    bio.textContent = profil.bio;
     bio.classList.remove("vide");
     bio.hidden = false;
   } else if (estMoi) {
@@ -240,12 +229,12 @@ function afficherProfils() {
   }
 
   // Date d'inscription
-  $("profil-meta").textContent = profils.cree_le ? "Membre depuis " + moisAnnee(profils.cree_le) : "";
+  $("profil-meta").textContent = profil.cree_le ? "Membre depuis " + moisAnnee(profil.cree_le) : "";
 
   // Portfolio
   const lienPortfolio = $("profil-portfolio");
-  if (lienSur(profils.portfolio_url)) {
-    lienPortfolio.href = profils.portfolio_url;
+  if (lienSur(profil.portfolio_url)) {
+    lienPortfolio.href = profil.portfolio_url;
     lienPortfolio.hidden = false;
   } else {
     lienPortfolio.hidden = true;
@@ -272,7 +261,7 @@ async function chargerGuides() {
     const { data, error } = await supabaseClient
       .from("guides")
       .select("id, titre, categorie, vues")
-      .eq("auteur_id", profils.id)
+      .eq("auteur_id", profil.id)
       .eq("publie", true)
       .order("cree_le", { ascending: false });
 
@@ -354,11 +343,11 @@ function remplirDisciplines(valeurActuelle) {
 }
 
 function ouvrirEdition() {
-  $("champ-nom").value = profils.nom || "";
-  remplirDisciplines(profils.discipline);
-  $("champ-bio").value = profils.bio || "";
-  $("champ-portfolio").value = profils.portfolio_url || "";
-  $("champ-public").checked = Boolean(profils.profil_public);
+  $("champ-nom").value = profil.nom || "";
+  remplirDisciplines(profil.discipline);
+  $("champ-bio").value = profil.bio || "";
+  $("champ-portfolio").value = profil.portfolio_url || "";
+  $("champ-public").checked = Boolean(profil.profil_public);
   majCompteurBio();
 
   $("message-profil").hidden = true;
@@ -413,13 +402,13 @@ async function enregistrerProfil(e) {
         portfolio_url: portfolio || null,
         profil_public: estPublic
       })
-      .eq("id", profils.id)
+      .eq("id", profil.id)
       .select()
       .single();
 
     if (error) throw error;
 
-    profils = Object.assign({}, profils, data);
+    profil = Object.assign({}, profil, data);
 
   } catch (err) {
     console.error(err);
