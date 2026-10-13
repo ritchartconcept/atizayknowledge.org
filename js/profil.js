@@ -154,11 +154,22 @@ async function demarrer() {
       .maybeSingle();
 
     // Pas de ligne = le profil n'existe pas, ou il est privé (la base ne le montre pas)
-    if (error || !data) {
-      if (error) console.error("Lecture du profil impossible :", error);
-      montrerIntrouvable();
-      return;
-    }
+    
+if (error) {
+  console.error("Erreur Supabase :", error);
+  montrerIntrouvable(
+    "Erreur de lecture du profil. Ouvre la console du navigateur pour voir le détail."
+  );
+  return;
+}
+
+if (!data) {
+  console.warn("Aucun profil accessible pour cet identifiant :", idProfil);
+  montrerIntrouvable(
+    "Aucun profil accessible avec cet identifiant. Vérifie qu'il existe et que les règles de visibilité l'autorisent."
+  );
+  return;
+}
 
     profil = data;
     afficherProfil();
