@@ -15,7 +15,7 @@ const PAGES_AUTORISEES = [
   "espace-membre.html",
   "guides.html",
   "fondateurs.html",
-  "profil.html"
+  "profils.html"
 ];
 
 // Page par défaut quand aucune destination n'est demandée
