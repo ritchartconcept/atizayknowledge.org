@@ -1,8 +1,8 @@
 :root {
-  --indigo: #1B2A4C;
-  --corail: #E63946;
-  --sable: #FAF3E7;
-  --or: #E9B44C;
+  --indigo: #24083E;
+  --corail: #EF4923;
+  --sable: #E9F4FC;
+  --or: #C4DA47;
   --encre: #1A1A1A;
   --vert: #3A7D5C;
 }
@@ -42,6 +42,7 @@ header {
   font-size: 1.25rem;
   color: var(--indigo);
   text-decoration: none;
+  cursor: pointer;
 }
 
 nav {
@@ -54,7 +55,17 @@ nav a {
   color: var(--encre);
   text-decoration: none;
   font-size: 0.95rem;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
+
+nav a ::after {
+  transition: width 0.3s ease;
+  transform: translateY(-3px);
+}
+
+nav a:hover {
+  color: var(--corail);
+ }
 
 nav a.actif {
   color: var(--corail);
@@ -76,7 +87,7 @@ nav a.actif {
 }
 
 .btn-theme:hover {
-  background: rgba(27,42,76,0.08);
+  background: var(--corail);
   transform: rotate(15deg);
 }
 
@@ -92,6 +103,7 @@ nav a.actif {
 /* Mode sombre : on inverse */
 html[data-theme="dark"] .btn-theme .icone-lune { display: none; }
 html[data-theme="dark"] .btn-theme .icone-soleil { display: block; }
+
 /* En-tête de page */
 .entete-guides {
   padding: 48px 0 8px;
@@ -264,20 +276,20 @@ footer {
 
 /* Dark mode */
 html[data-theme="dark"] {
-  --sable: #14202E;
-  --encre: #F2ECDD;
-  --indigo: #6C8FC7;
+  --sable: #2F1C44;
+  --encre: #dde8f1;
+  --indigo: #c8d4ea;
 }
 
 html[data-theme="dark"] body {
-  background: #0F1824;
+  background: #24083E;
 }
 
 html[data-theme="dark"] .guide-carte,
 html[data-theme="dark"] .barre-recherche input,
 html[data-theme="dark"] .filtre-btn {
-  background: #1B2734;
-  border-color: #2C3A4A;
+  background: #2F1C44;
+  border-color:#53553b;
   color: var(--encre);
 }
 
@@ -287,7 +299,7 @@ html[data-theme="dark"] .filtre-btn.actif {
 }
 
 html[data-theme="dark"] .btn-theme {
-  border-color: var(--sable);
+  border-color: #53553b;
 }
 
 @media (max-width: 900px) {
