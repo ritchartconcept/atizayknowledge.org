@@ -1,388 +1,406 @@
 
-  :root {
-    --indigo: #1B2A4C;
-    --corail: #E63946;
-    --sable: #FAF3E7;
-    --or: #E9B44C;
-    --encre: #1A1A1A;
-  }
+:root {
+  --indigo: #24083E;
+  --corail: #EF4923;
+  --sable: #E9F4FC;
+  --or: #C4DA47;
+  --encre: #1A1A1A;
+}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: 'Work Sans', sans-serif;
-    color: var(--encre);
-    background: var(--sable);
-    line-height: 1.6;
-  }
+body {
+  font-family: 'Work Sans', sans-serif;
+  color: var(--encre);
+  background: var(--sable);
+  line-height: 1.6;
+}
 
-  h1, h2, h3 {
-    font-family: 'Fraunces', serif;
-    line-height: 1.15;
-  }
+h1, h2, h3 {
+  font-family: 'Fraunces', serif;
+  line-height: 1.15;
+}
 
-  .wrap {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
 
-  /* Header */
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 24px 0;
-  }
-
-  .logo {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 1.3rem;
-    color: var(--indigo);
-  }
-
-    nav {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-  }
-
-  nav a {
-    color: var(--encre);
-    text-decoration: none;
-    font-size: 0.95rem;
-  }
-
-  /* Hero — vidéo réduite + slideshow horizontal + texte centré */
-.hero {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* La vidéo n'occupe plus qu'une bande en haut du hero.
-     Change la valeur "height" (ex: 280px) pour ajuster sa hauteur.
-  .hero-video-wrap {
-    position: relative;
-    width: 100%;
-    height: 280px;
-    overflow: hidden;
-  }
-  
-  .hero-video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-  }
-  
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, rgba(27,42,76,0.75) 0%, rgba(27,42,76,0.35) 100%);
-    z-index: 1;
-  } */
-  
-  /* Slideshow d'images en fondu automatique, superposées les unes aux autres */
-  .hero-slideshow {
-    position: relative;
-    width: 100%;
-    height: 420px; /* plus grand, puisqu'il n'y a plus de vidéo au-dessus */
-    overflow: hidden;
-    background: var(--indigo);
-  }
-  
-  .hero-slideshow .slide {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1s ease;
-  }
-  
-  .hero-slideshow .slide.actif {
-    opacity: 1;
-  }
-  
-  @media (max-width: 760px) {
-    .hero-slideshow { height: 260px; }
-  }
-  
-  /* Texte centré horizontalement, en dessous du slideshow */
-  .hero-texte {
-    text-align: center;
-    padding: 48px 24px 64px;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  
-  .hero h1 {
-    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-    color: var(--indigo);
-    max-width: none;
-  }
-  
-  .hero p {
-    margin: 20px auto 0;
-    font-size: 1.15rem;
-    max-width: 55ch;
-    color: #3a3a3a;
-  }
-  
-  .hero-actions {
-    margin-top: 32px;
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .btn {
-    display: inline-block;
-    padding: 14px 26px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.98rem;
-  }
-  
-  .btn-primary {
-    background: var(--corail);
-    color: white;
-  }
-  
-  .btn-secondary {
-    background: transparent;
-    color: var(--indigo);
-    border: 1.5px solid var(--indigo);
-  }
-  
-  @media (max-width: 760px) {
-    .hero-video-wrap { height: 200px; }
-    .hero-slideshow img { width: 160px; height: 105px; }
-    .hero-texte { padding: 36px 20px 48px; }
-  }
-
-  /* Problème */
-  .probleme {
-    background: var(--indigo);
-    color: var(--sable);
-    padding: 72px 0;
-  }
-
-   .probleme h2 {
-    font-size: 1.9rem;
-    max-width: 40ch;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .probleme-grid {
-    margin-top: 40px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-  }
-
-    .probleme-grid div {
-    border-top: 2px solid var(--or);
-    padding-top: 16px;
-    text-align: center;
-  }
-
-  .probleme-grid p {
-    font-size: 0.95rem;
-    opacity: 0.9;
-  }
-
-  /* Comment ça marche */
-  .comment {
-    padding: 80px 0;
-  }
-
-    .comment h2 {
-    font-size: 1.9rem;
-    color: var(--indigo);
-    max-width: 36ch;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .comment-cols {
-    margin-top: 44px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-  }
-
-    .col-card {
-    background: white;
-    border-radius: 6px;
-    padding: 32px;
-    border: 1px solid #e8ddc8;
-    text-align: center;
-  }
-
-  .col-card h3 {
-    font-size: 1.3rem;
-    color: var(--corail);
-    margin-bottom: 14px;
-  }
-
-  .col-card p {
-    font-size: 0.98rem;
-    color: #444;
-  }
-
-  /* Guides */
-  .guides {
-    background: white;
-    padding: 80px 0;
-  }
-
-  .guides h2 {
-    font-size: 1.9rem;
-    color: var(--indigo);
-  }
-
-  .guides-grid {
-    margin-top: 40px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-  }
-
-  .guide-card {
-    border: 1px solid #e8ddc8;
-    border-radius: 6px;
-    padding: 22px;
-  }
-
-  .guide-cat {
-    font-size: 0.8rem;
-    color: var(--corail);
-    font-weight: 600;
-  }
-
-  .guide-card h3 {
-    font-size: 1.05rem;
-    margin-top: 8px;
-    color: var(--encre);
-  }
-
-  /* Métiers — grille de cartes avec image */
-  .metiers {
-    padding: 80px 0;
-  }
-
-  .metiers h2 {
-    font-size: 1.9rem;
-    color: var(--indigo);
-  }
-
-  .metiers > .wrap > p {
-    margin-top: 12px;
-    max-width: 60ch;
-    color: #555;
-  }
-
-  .metiers-grid {
-    margin-top: 40px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .metier-card {
-    background: white;
-    border: 1px solid #e8ddc8;
-    border-radius: 6px;
-    overflow: hidden;
-  }
-
-  /* Remplace le "src" de chaque <img> par tes propres photos/illustrations.
-     Le ratio 4/3 est fixé pour que toutes les images gardent la même taille
-     même si les fichiers d'origine ont des dimensions différentes. */
-  .metier-card img {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    display: block;
-  }
-
-  .metier-card-texte {
-    padding: 18px 20px 22px;
-  }
-
-  .metier-card h3 {
-    font-size: 1.05rem;
-    color: var(--encre);
-  }
-
-  .metier-card p {
-    margin-top: 6px;
-    font-size: 0.9rem;
-    color: #666;
-  }
-
-  /* CTA final */
-  .cta-final {
-    background: var(--sable);
-    padding: 72px 0;
-    text-align: left;
-  }
-
-  .cta-box {
-    background: var(--corail);
-    color: white;
-    border-radius: 8px;
-    padding: 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 24px;
-  }
-
-  .cta-box h2 {
-    font-size: 1.6rem;
-    max-width: 20ch;
-  }
-
-  .cta-box .btn-primary {
-    background: white;
-    color: var(--corail);
-  }
-
-  /* Bouton de bascule dark mode */
-.btn-theme {
+/* Header */
+header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  background: transparent;
-  border: 1.5px solid var(--indigo);
-  border-radius: 50%;
+  padding: 24px 0;
+}
+
+.logo {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 1.3rem;
   color: var(--indigo);
   cursor: pointer;
+  transition: 0.2s ease, transform 0.2s ease;
+}
+
+.logo ::after :hover {
+  transform: translateY(-3px);
+  color: var(--corail);
+}
+
+  nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+nav a {
+  color: var(--encre);
+  text-decoration: none;
+  font-size: 0.95rem;
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
+nav a ::after {
+  transition: width 0.3s ease;
+  transform: translateY(-3px);
+}
+
+nav a:hover {
+  color: var(--corail);
+ }
+/* nav-links a:hover::after { width: 100%; } */
+
+/* Hero — vidéo réduite + slideshow horizontal + texte centré */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* La vidéo n'occupe plus qu'une bande en haut du hero.
+   Change la valeur "height" (ex: 280px) pour ajuster sa hauteur.
+.hero-video-wrap {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(27,42,76,0.75) 0%, rgba(27,42,76,0.35) 100%);
+  z-index: 1;
+} */
+
+/* Slideshow d'images en fondu automatique, superposées les unes aux autres */
+.hero-slideshow {
+  position: relative;
+  width: 100%;
+  height: 420px; /* plus grand, puisqu'il n'y a plus de vidéo au-dessus */
+  overflow: hidden;
+  background: var(--indigo);
+}
+
+.hero-slideshow .slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.hero-slideshow .slide.actif {
+  opacity: 1;
+}
+
+@media (max-width: 760px) {
+  .hero-slideshow { height: 260px; }
+}
+
+/* Texte centré horizontalement, en dessous du slideshow */
+.hero-texte {
+  text-align: center;
+  padding: 48px 24px 64px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  color: var(--indigo);
+  max-width: none;
+}
+
+.hero p {
+  margin: 20px auto 0;
+  font-size: 1.15rem;
+  max-width: 55ch;
+  color: #3a3a3a;
+}
+
+.hero-actions {
+  margin-top: 32px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 26px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.98rem;
+}
+
+.btn-primary {
+  background: var(--corail);
+  color: white;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--indigo);
+  border: 1.5px solid var(--indigo);
+}
+
+@media (max-width: 760px) {
+  .hero-video-wrap { height: 200px; }
+  .hero-slideshow img { width: 160px; height: 105px; }
+  .hero-texte { padding: 36px 20px 48px; }
+}
+
+/* Problème */
+.probleme {
+  background: var(--indigo);
+  color: var(--sable);
+  padding: 72px 0;
+}
+
+.probleme h2 {
+  font-size: 1.9rem;
+  max-width: 40ch;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.probleme-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.probleme-grid div {
+  border-top: 2px solid var(--or);
+  padding-top: 16px;
+  text-align: center;
+}
+
+.probleme-grid p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* Comment ça marche */
+.comment {
+  padding: 80px 0;
+}
+
+.comment h2 {
+  font-size: 1.9rem;
+  color: var(--indigo);
+  max-width: 36ch;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.comment-cols {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.col-card {
+  background: white;
+  border-radius: 6px;
+  padding: 32px;
+  border: 1px solid #e8ddc8;
+  text-align: center;
+}
+
+.col-card h3 {
+  font-size: 1.3rem;
+  color: var(--corail);
+  margin-bottom: 14px;
+}
+
+.col-card p {
+  font-size: 0.98rem;
+  color: #444;
+}
+
+/* Guides */
+.guides {
+  background: white;
+  padding: 80px 0;
+}
+
+.guides h2 {
+  font-size: 1.9rem;
+  color: var(--indigo);
+}
+
+.guides-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.guide-card {
+  border: 1px solid #e8ddc8;
+  border-radius: 6px;
+  padding: 22px;
+}
+
+.guide-cat {
+  font-size: 0.8rem;
+  color: var(--corail);
+  font-weight: 600;
+}
+
+.guide-card h3 {
+  font-size: 1.05rem;
+  margin-top: 8px;
+  color: var(--encre);
+}
+
+/* Métiers — grille de cartes avec image */
+.metiers {
+  padding: 80px 0;
+}
+
+.metiers h2 {
+  font-size: 1.9rem;
+  color: var(--indigo);
+}
+
+.metiers > .wrap > p {
+  margin-top: 12px;
+  max-width: 60ch;
+  color: #555;
+}
+
+.metiers-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.metier-card {
+  background: white;
+  border: 1px solid #DEE497;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Remplace le "src" de chaque <img> par tes propres photos/illustrations.
+   Le ratio 4/3 est fixé pour que toutes les images gardent la même taille
+   même si les fichiers d'origine ont des dimensions différentes. */
+.metier-card img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+
+.metier-card-texte {
+  padding: 18px 20px 22px;
+}
+
+.metier-card h3 {
+  font-size: 1.05rem;
+  color: var(--encre);
+}
+
+.metier-card p {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* CTA final */
+.cta-final {
+  background: var(--sable);
+  padding: 72px 0;
+  text-align: left;
+}
+
+.cta-box {
+  background: var(--corail);
+  color: white;
+  border-radius: 8px;
+  padding: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.cta-box h2 {
+  font-size: 1.6rem;
+  max-width: 20ch;
+}
+
+.cta-box .btn-primary {
+  background: white;
+  color: var(--corail);
+}
+
+/* Bouton de bascule dark mode */
+.btn-theme {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 38px;
+height: 38px;
+background: transparent;
+border: 1.5px solid var(--indigo);
+border-radius: 50%;
+color: var(--indigo);
+cursor: pointer;
+transition: background 0.2s ease, transform 0.2s ease;
+}
+
 .btn-theme:hover {
-  background: rgba(27,42,76,0.08);
-  transform: rotate(15deg);
+background: var(--corail);
+transform: rotate(15deg);
 }
 
 .btn-theme svg {
-  width: 19px;
-  height: 19px;
-  display: block;
+width: 19px;
+height: 19px;
+display: block;
 }
 
 /* Mode clair : on montre la lune, on cache le soleil */
@@ -392,37 +410,37 @@
 html[data-theme="dark"] .btn-theme .icone-lune { display: none; }
 html[data-theme="dark"] .btn-theme .icone-soleil { display: block; }
 
-  footer {
-    padding: 32px 0 48px;
-    font-size: 0.9rem;
-    color: #666;
-    display: flex;
-    justify-content: space-between;
-  }
+footer {
+  padding: 32px 0 48px;
+  font-size: 0.9rem;
+  color: #666;
+  display: flex;
+  justify-content: space-between;
+}
 
-  .legal-content {
-    color: #666;
-    text-decoration: none;
-  }
+.legal-content {
+  color: #666;
+  text-decoration: none;
+}
 
-  @media (max-width: 760px) {
-    .hero-inner { grid-template-columns: 1fr; }
-    .probleme-grid { grid-template-columns: 1fr; }
-    .comment-cols { grid-template-columns: 1fr; }
-    .guides-grid { grid-template-columns: 1fr 1fr; }
-    .metiers-grid { grid-template-columns: 1fr 1fr; }
-        nav a { display: none; }
-  }
+@media (max-width: 760px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .probleme-grid { grid-template-columns: 1fr; }
+  .comment-cols { grid-template-columns: 1fr; }
+  .guides-grid { grid-template-columns: 1fr 1fr; }
+  .metiers-grid { grid-template-columns: 1fr 1fr; }
+      nav a { display: none; }
+}
 
 /* ===== Dark mode ===== */
 html[data-theme="dark"] {
-  --sable: #14202E;
-  --encre: #F2ECDD;
-  --indigo: #6C8FC7;
+--sable: #2F1C44;
+--encre: #dde5ec;
+--indigo: #acb5c4;
 }
 
 html[data-theme="dark"] body {
-  background: #0F1824;
+background: #2F1C44;
 }
 
 html[data-theme="dark"] .hero p,
@@ -431,26 +449,26 @@ html[data-theme="dark"] .metiers > .wrap > p,
 html[data-theme="dark"] .metier-card p,
 html[data-theme="dark"] footer,
 html[data-theme="dark"] .legal-content {
-  color: #B9B3A5;
+color: #B9B3A5;
 }
 
 html[data-theme="dark"] .col-card,
 html[data-theme="dark"] .metier-card,
 html[data-theme="dark"] .guide-card {
-  background: #1B2734;
-  border-color: #2C3A4A;
+background: #211330;
+border-color: #53553b;
 }
 
 html[data-theme="dark"] .guides {
-  background: #14202E;
+background: #211330;
 }
 
 html[data-theme="dark"] .probleme {
-  background: #1B2734;
-  color: #F2ECDD;
+background: #211330;
+color: #F2ECDD;
 }
 
 html[data-theme="dark"] .btn-secondary {
-  color: var(--encre);
-  border-color: var(--encre);
+color: var(--encre);
+border-color: var(--encre);
 }
