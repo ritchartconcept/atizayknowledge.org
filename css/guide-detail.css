@@ -1,10 +1,10 @@
 :root {
-  --indigo: #1B2A4C;
-  --corail: #E63946;
-  --sable: #FAF3E7;
-  --or: #E9B44C;
+  --indigo: #24083E;
+  --corail: #EF4923;
+  --sable: #E9F4FC;
+  --or: #C4DA47;
   --encre: #1A1A1A;
-  --vert: #3A7D5C;
+  --vert: #C4DA47;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -56,6 +56,22 @@ nav a {
   font-size: 0.95rem;
 }
 
+nav a {
+  color: var(--encre);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+nav a ::after {
+  transition: width 0.3s ease;
+  transform: translateY(-3px);
+}
+
+nav a:hover {
+  color: var(--corail);
+ }
+
 nav a.actif {
   color: var(--corail);
   font-weight: 600;
@@ -78,7 +94,7 @@ nav a.actif {
 }
 
 .btn-theme:hover {
-  background: rgba(27, 42, 76, 0.08);
+  background: var(--corail);
   transform: rotate(15deg);
 }
 
