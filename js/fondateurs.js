@@ -26,11 +26,22 @@ const FONDATEURS_SECOURS = [
 const LABELS_DISCIPLINES = {
   "illustration": "Illustration",
   "bd": "Bande dessinée",
-  "animation2d": "Animation 2D",
-  "graffiti": "Graffiti / art urbain",
-  "design": "Design graphique",
-  "art3d": "Art 3D",
+  "manga": "Manga",
+  "storyboard": "Storyboard",
+  "character-design": "Character design",
   "concept-art": "Concept art",
+  "animation2d": "Animation 2D",
+  "animation3d": "Animation 3D",
+  "art3d": "Art 3D",
+  "graffiti": "Graffiti / art urbain",
+  "peinture": "Peinture",
+  "design": "Design graphique",
+  "ui-ux": "Design UI / UX",
+  "motion-design": "Motion design",
+  "photographie": "Photographie",
+  "videographie": "Vidéographie",
+  "game-design": "Game design",
+  "game-dev": "Game dev",
   "autre": "Autre"
 };
 

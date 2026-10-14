@@ -10,6 +10,10 @@
 // false = n'affiche ni la liste ni les chiffres des guides
 const AFFICHER_GUIDES = true;
 
+// Photo de profil : nom de l'espace de stockage Supabase et taille finale (carré, en pixels)
+const BUCKET_AVATARS = "avatars";
+const TAILLE_AVATAR = 400;
+
 // Longueur maximale de la bio (doit rester identique à la limite du SQL)
 const LONGUEUR_MAX_BIO = 300;
 
@@ -17,11 +21,22 @@ const LONGUEUR_MAX_BIO = 300;
 const LABELS_DISCIPLINES = {
   "illustration": "Illustration",
   "bd": "Bande dessinée",
-  "animation2d": "Animation 2D",
-  "graffiti": "Graffiti / art urbain",
-  "design": "Design graphique",
-  "art3d": "Art 3D",
+  "manga": "Manga",
+  "storyboard": "Storyboard",
+  "character-design": "Character design",
   "concept-art": "Concept art",
+  "animation2d": "Animation 2D",
+  "animation3d": "Animation 3D",
+  "art3d": "Art 3D",
+  "graffiti": "Graffiti / art urbain",
+  "peinture": "Peinture",
+  "design": "Design graphique",
+  "ui-ux": "Design UI / UX",
+  "motion-design": "Motion design",
+  "photographie": "Photographie",
+  "videographie": "Vidéographie",
+  "game-design": "Game design",
+  "game-dev": "Game dev",
   "autre": "Autre"
 };
 
@@ -149,14 +164,24 @@ async function demarrer() {
 
     const { data, error } = await supabaseClient
       .from("profils")
-      .select("id, nom, discipline, bio, portfolio_url, profil_public, est_fondateur, rang_fondateur, fondateur_depuis, cree_le")
+      .select("id, nom, discipline, bio, portfolio_url, photo_url, profil_public, est_fondateur, rang_fondateur, fondateur_depuis, cree_le")
       .eq("id", idProfil)
       .maybeSingle();
 
+    // Erreur de lecture (ex : colonne manquante, règle de sécurité absente)
+    if (error) {
+      console.error("Lecture du profil impossible :", error);
+      montrerIntrouvable(estMoi
+        ? "Impossible de charger ton profil. Ouvre la console (touche F12) pour voir le détail de l'erreur."
+        : undefined);
+      return;
+    }
+
     // Pas de ligne = le profil n'existe pas, ou il est privé (la base ne le montre pas)
-    if (error || !data) {
-      if (error) console.error("Lecture du profil impossible :", error);
-      montrerIntrouvable();
+    if (!data) {
+      montrerIntrouvable(estMoi
+        ? "Ton compte n'a pas encore de profil dans la base de données."
+        : undefined);
       return;
     }
 
@@ -185,8 +210,20 @@ function afficherProfil() {
 
   // Avatar
   const avatar = $("profil-avatar");
-  avatar.textContent = initiales(nom);
   avatar.className = "profil-avatar couleur-" + numeroCouleur(profil.id);
+  avatar.textContent = "";
+  if (lienSur(profil.photo_url)) {
+    const image = el("img", "avatar-img");
+    image.src = profil.photo_url;
+    image.alt = "Photo de " + nom;
+    avatar.appendChild(image);
+  } else {
+    avatar.textContent = initiales(nom);
+  }
+
+  // Boutons de photo : seulement sur ton propre profil
+  $("avatar-bouton").hidden = !estMoi;
+  $("btn-retirer-photo").hidden = !(estMoi && lienSur(profil.photo_url));
 
   $("profil-nom").textContent = nom;
   $("profil-discipline").textContent = LABELS_DISCIPLINES[profil.discipline] || profil.discipline || "Artiste visuel";
@@ -427,11 +464,124 @@ async function enregistrerProfil(e) {
 }
 
 
+// ---------- PHOTO DE PROFIL ----------
+
+// Découpe l'image en carré centré et la réduit à TAILLE_AVATAR pixels
+// (une photo légère se charge vite, même avec une connexion lente)
+function redimensionnerAvatar(fichier) {
+  return new Promise(function (resolve, reject) {
+    const lecteur = new FileReader();
+    lecteur.onerror = reject;
+    lecteur.onload = function (e) {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = function () {
+        const cote = Math.min(img.width, img.height);
+        const canvas = document.createElement("canvas");
+        canvas.width = TAILLE_AVATAR;
+        canvas.height = TAILLE_AVATAR;
+        canvas.getContext("2d").drawImage(
+          img, (img.width - cote) / 2, (img.height - cote) / 2, cote, cote,
+          0, 0, TAILLE_AVATAR, TAILLE_AVATAR
+        );
+        canvas.toBlob(function (blob) {
+          blob ? resolve(blob) : reject(new Error("Conversion de l'image impossible"));
+        }, "image/jpeg", 0.85);
+      };
+      img.src = e.target.result;
+    };
+    lecteur.readAsDataURL(fichier);
+  });
+}
+
+function messageTemporaire(texte, type) {
+  const zone = $("message-global");
+  afficherMessage(zone, texte, type);
+  setTimeout(function () { zone.hidden = true; }, 4000);
+}
+
+async function changerPhoto(fichier) {
+  if (!fichier) return;
+
+  if (!/^image\/(jpeg|png|webp)$/.test(fichier.type)) {
+    messageTemporaire("Choisis une image JPG, PNG ou WebP.", "erreur");
+    return;
+  }
+  if (fichier.size > 8 * 1024 * 1024) {
+    messageTemporaire("Cette image est trop lourde (8 Mo maximum).", "erreur");
+    return;
+  }
+
+  const bouton = $("avatar-bouton");
+  bouton.classList.add("charge");
+
+  try {
+    const blob = await redimensionnerAvatar(fichier);
+
+    // Chaque membre a son propre dossier : avatars/<son identifiant>/avatar.jpg
+    const chemin = profil.id + "/avatar.jpg";
+    const { error: erreurEnvoi } = await supabaseClient.storage
+      .from(BUCKET_AVATARS)
+      .upload(chemin, blob, { upsert: true, contentType: "image/jpeg" });
+    if (erreurEnvoi) throw erreurEnvoi;
+
+    // "?v=..." force le navigateur à recharger la nouvelle photo
+    const { data: lien } = supabaseClient.storage.from(BUCKET_AVATARS).getPublicUrl(chemin);
+    const url = lien.publicUrl + "?v=" + Date.now();
+
+    const { data, error } = await supabaseClient
+      .from("profils")
+      .update({ photo_url: url })
+      .eq("id", profil.id)
+      .select()
+      .single();
+    if (error) throw error;
+
+    profil = Object.assign({}, profil, data);
+    afficherProfil();
+    messageTemporaire("Photo mise à jour.", "succes");
+
+  } catch (e) {
+    console.error(e);
+    messageTemporaire("Envoi de la photo impossible : " + (e.message || "erreur inconnue"), "erreur");
+  } finally {
+    bouton.classList.remove("charge");
+    $("avatar-fichier").value = "";
+  }
+}
+
+async function retirerPhoto() {
+  if (!confirm("Retirer ta photo de profil ?")) return;
+
+  try {
+    await supabaseClient.storage.from(BUCKET_AVATARS).remove([profil.id + "/avatar.jpg"]);
+
+    const { data, error } = await supabaseClient
+      .from("profils")
+      .update({ photo_url: null })
+      .eq("id", profil.id)
+      .select()
+      .single();
+    if (error) throw error;
+
+    profil = Object.assign({}, profil, data);
+    afficherProfil();
+    messageTemporaire("Photo retirée.", "succes");
+
+  } catch (e) {
+    console.error(e);
+    messageTemporaire("Impossible de retirer la photo : " + (e.message || "erreur inconnue"), "erreur");
+  }
+}
+
+
 // ---------- ÉVÉNEMENTS ----------
 
 $("btn-modifier").addEventListener("click", ouvrirEdition);
 $("btn-annuler").addEventListener("click", fermerEdition);
 $("form-profil").addEventListener("submit", enregistrerProfil);
 $("champ-bio").addEventListener("input", majCompteurBio);
+$("avatar-fichier").addEventListener("change", function () { changerPhoto(this.files[0]); });
+$("btn-retirer-photo").addEventListener("click", retirerPhoto);
 
 demarrer();
