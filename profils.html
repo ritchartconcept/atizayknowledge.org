@@ -55,7 +55,16 @@
       <div class="profil-banniere"></div>
 
       <section class="profil-carte">
-        <div class="profil-avatar" id="profil-avatar"></div>
+        <div class="avatar-zone">
+          <div class="profil-avatar" id="profil-avatar"></div>
+          <label class="avatar-bouton" id="avatar-bouton" title="Changer la photo" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+              <circle cx="12" cy="13" r="4"/>
+            </svg>
+            <input type="file" id="avatar-fichier" accept="image/png,image/jpeg,image/webp" hidden>
+          </label>
+        </div>
 
         <div class="profil-haut">
           <div class="profil-identite">
@@ -75,6 +84,7 @@
 
         <p class="profil-bio" id="profil-bio"></p>
         <p class="profil-meta" id="profil-meta"></p>
+        <button type="button" class="lien-discret" id="btn-retirer-photo" hidden>Retirer ma photo</button>
 
         <p class="note-prive" id="note-prive" hidden>
           Ton profil est privé : toi seul peux le voir. Coche « Rendre mon profil public » dans « Modifier mon profil » pour que les autres artistes puissent le consulter.
