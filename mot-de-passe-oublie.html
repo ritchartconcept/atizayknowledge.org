@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mot de passe oublié — Atizay Knowledge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="assets/icon/favicon_io/android-chrome-512x512.png" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/login.css">
+
+<!-- Doit rester ICI, avant tous les autres scripts : lit l'adresse avant que Supabase ne la nettoie.
+     Quand on arrive par le lien de l'email, l'adresse contient "type=recovery". -->
+<script>
+  (function () {
+    const hash = window.location.hash;
+    window.__recuperation = hash.includes("type=recovery");
+    window.__lienExpire = hash.includes("error=") || hash.includes("error_code=");
+  })();
+</script>
+</head>
+
+<body>
+
+<div class="wrap">
+  <header>
+    <a href="index.html" class="logo">Atizay Knowledge</a>
+    <a href="login.html" class="back">← Retour à la connexion</a>
+    <button id="toggle-theme" class="btn-theme" aria-label="Changer de thème">
+      <svg class="icone-lune" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+      </svg>
+      <svg class="icone-soleil" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </header>
+</div>
+
+<div class="connexion">
+
+  <div class="connexion-visuel">
+    <h2>Un trou de mémoire ? Ça arrive.</h2>
+    <p>Choisis un nouveau mot de passe en quelques secondes et reprends là où tu t'étais arrêté.</p>
+  </div>
+
+  <div class="connexion-form">
+    <div class="form-box">
+
+      <!-- ===== Étape 1 : demander le lien ===== -->
+      <div id="bloc-demande">
+        <h1>Mot de passe oublié</h1>
+        <p class="sous-titre">Entre ton adresse email : nous t'envoyons un lien pour choisir un nouveau mot de passe.</p>
+
+        <div class="erreur" id="message-demande"></div>
+
+        <form id="form-demande" novalidate>
+          <div class="champ">
+            <label for="email-oubli">Adresse email</label>
+            <input type="email" id="email-oubli" required placeholder="toi@exemple.com" autocomplete="email">
+          </div>
+          <button type="submit" class="btn-submit" id="btn-demande">Envoyer le lien</button>
+        </form>
+      </div>
+
+      <!-- ===== Étape 2 : choisir le nouveau mot de passe (après le clic dans l'email) ===== -->
+      <div id="bloc-nouveau" hidden>
+        <h1>Nouveau mot de passe</h1>
+        <p class="sous-titre">Choisis un mot de passe d'au moins 8 caractères.</p>
+
+        <div class="erreur" id="message-nouveau"></div>
+
+        <form id="form-nouveau" novalidate>
+          <div class="champ">
+            <label for="nouveau-mdp">Nouveau mot de passe</label>
+            <input type="password" id="nouveau-mdp" required placeholder="••••••••" autocomplete="new-password">
+          </div>
+          <div class="champ">
+            <label for="nouveau-mdp2">Confirmer le mot de passe</label>
+            <input type="password" id="nouveau-mdp2" required placeholder="••••••••" autocomplete="new-password">
+          </div>
+          <button type="submit" class="btn-submit" id="btn-nouveau">Enregistrer le mot de passe</button>
+        </form>
+      </div>
+
+      <div class="separateur">ou</div>
+      <p class="lien-inscription">
+        Tu t'en souviens ? <a href="login.html">Se connecter</a>
+      </p>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/mot-de-passe.js"></script>
+<script src="js/theme.js"></script>
+
+</body>
+</html>
