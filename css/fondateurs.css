@@ -536,10 +536,10 @@ html[data-theme="dark"] footer { border-color: #2C3A4A; }
 /* L'en-tête garde un fond sombre en mode sombre aussi */
 html[data-theme="dark"] .hero-fondateurs {
   background: #2F1C44;
-  color: #F2ECDD;
+  color: #dde8f1;
 }
 
-html[data-theme="dark"] .hero-fondateurs h1 { color: #F2ECDD; }
+html[data-theme="dark"] .hero-fondateurs h1 { color: #dde8f1; }
 
 html[data-theme="dark"] .fondateur-carte,
 html[data-theme="dark"] .criteres li,
