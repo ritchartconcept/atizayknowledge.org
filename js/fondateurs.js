@@ -91,11 +91,17 @@ async function chargerFondateurs() {
   }
 
   try {
-    const { data, error } = await supabaseClient
+    const lireFondateurs = (colonnes) => supabaseClient
       .from("profils")
-      .select("nom, discipline, bio, portfolio_url, rang_fondateur, fondateur_depuis")
+      .select(colonnes)
       .eq("est_fondateur", true)
       .order("rang_fondateur", { ascending: true });
+
+    const colonnes = "nom, discipline, bio, portfolio_url, rang_fondateur, fondateur_depuis";
+
+    // On demande la photo ; si la colonne n'existe pas encore, on réessaie sans elle
+    let { data, error } = await lireFondateurs(colonnes + ", photo_url");
+    if (error) ({ data, error } = await lireFondateurs(colonnes));
 
     if (error) throw error;
 
@@ -106,6 +112,7 @@ async function chargerFondateurs() {
         discipline: p.discipline,
         bio: p.bio,
         portfolio: p.portfolio_url,
+        photo: p.photo_url,
         depuis: p.fondateur_depuis
       };
     });
@@ -127,7 +134,18 @@ function creerCarteFondateur(f) {
   const carte = el("article", "fondateur-carte");
 
   carte.appendChild(el("span", "fondateur-rang", "N° " + deuxChiffres(f.rang)));
-  carte.appendChild(el("div", "fondateur-avatar couleur-" + (f.rang % 4), initiales(f.nom)));
+  // Avatar : la photo si le membre en a une, sinon ses initiales
+  const avatar = el("div", "fondateur-avatar couleur-" + (f.rang % 4));
+  if (lienSur(f.photo)) {
+    const image = el("img");
+    image.src = f.photo;
+    image.alt = "Photo de " + f.nom;
+    image.loading = "lazy";
+    avatar.appendChild(image);
+  } else {
+    avatar.textContent = initiales(f.nom);
+  }
+  carte.appendChild(avatar);
   carte.appendChild(el("h3", "", f.nom));
   carte.appendChild(el("span", "fondateur-discipline", LABELS_DISCIPLINES[f.discipline] || f.discipline || "Artiste visuel"));
 
