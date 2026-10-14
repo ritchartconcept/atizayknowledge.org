@@ -272,6 +272,17 @@ html[data-theme="dark"] .btn-theme .icone-soleil { display: block; }
   margin-bottom: 14px;
 }
 
+.fondateur-avatar {
+  overflow: hidden;
+}
+
+.fondateur-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* Quatre couleurs d'avatar, choisies selon le numéro */
 .couleur-1 { background: var(--indigo); }
 .couleur-2 { background: var(--corail); }
