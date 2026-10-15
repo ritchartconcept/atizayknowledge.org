@@ -326,3 +326,6 @@ html[data-theme="dark"] .separateur::before,
 html[data-theme="dark"] .separateur::after {
 background: #1d112a;
 }
+
+.erreur.succes { background: #e8f4ed; border-color: #C4DA47; color: #3f480d; }
+html[data-theme="dark"] .erreur.succes { background: #1f3a2d; border-color: #3f480d; color: #C4DA47; }
