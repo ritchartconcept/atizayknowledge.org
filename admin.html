@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Administration — Atizay Knowledge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="assets/icon/favicon_io/android-chrome-512x512.png" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/profil.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+
+<div class="wrap">
+  <header>
+    <a href="index.html" class="logo">Atizay Knowledge</a>
+    <nav>
+      <a href="guides.html">Guides</a>
+      <a href="espace-membre.html">Mon espace</a>
+      <button id="toggle-theme" class="btn-theme" aria-label="Changer de thème">
+        <svg class="icone-lune" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+        </svg>
+        <svg class="icone-soleil" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <a href="profils.html" class="avatar" title="Mon profil">FR</a>
+    </nav>
+  </header>
+</div>
+
+<main class="wrap page-admin">
+  <h1>Propositions de guides</h1>
+
+  <p class="etat" id="etat">Vérification de l'accès...</p>
+
+  <div id="admin-contenu" hidden>
+    <div class="message" id="message-admin" hidden></div>
+    <div class="onglets" id="onglets"></div>
+    <div id="liste-propositions"></div>
+  </div>
+</main>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/guides-data.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/theme.js"></script>
+
+<div class="wrap">
+  <footer>
+    <span>Atizay Knowledge</span>
+    <span>Contact · À propos</span>
+  </footer>
+</div>
+
+</body>
+</html>
