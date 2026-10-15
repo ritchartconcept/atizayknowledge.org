@@ -193,6 +193,12 @@ async function demarrer() {
 
     chargerGuides();
 
+    // Lien "Administration" : visible seulement si ton compte est administrateur
+    if (estMoi) {
+      const { data: admin } = await supabaseClient.rpc("est_admin");
+      $("lien-admin").hidden = !admin;
+    }
+
   } catch (e) {
     console.error(e);
     montrerIntrouvable("Une erreur est survenue. Réessaie dans un instant.");

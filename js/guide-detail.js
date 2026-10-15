@@ -1,34 +1,45 @@
-// Les données (guidesDemo, labelsCategories) viennent de js/guides-data.js,
-// chargé avant ce fichier dans guide-detail.html.
+// Les noms de catégories (labelsCategories) viennent de js/guides-data.js ;
+// le guide lui-même est lu dans Supabase (table "guides").
 
 // --- 1. Récupérer le guide demandé via l'adresse : guide-detail.html?id=3 ---
 const params = new URLSearchParams(window.location.search);
-const idGuide = Number(params.get('id'));
+const idGuide = params.get('id');                       // identifiant Supabase (texte)
 const modeApercu = params.get('brouillon') === '1';
 
 let guide = null;
-if (modeApercu) {
-  // Aperçu depuis la page "Proposer un guide" : le contenu vient du navigateur
-  try { guide = JSON.parse(localStorage.getItem('apercuGuide')); } catch (e) {}
-} else {
-  guide = guidesDemo.find(function (g) { return g.id === idGuide; });
-}
-// Un guide sans module ne peut pas s'afficher
-if (guide && (!guide.modules || guide.modules.length === 0)) guide = null;
+let moduleActif = 0;
 
 const zoneIntrouvable = document.getElementById('introuvable');
 const zoneContenu = document.getElementById('guide-contenu');
 
-let moduleActif = 0;
+// Charge le guide : aperçu (depuis le navigateur) ou guide publié (depuis Supabase)
+async function chargerGuide() {
+  if (modeApercu) {
+    try { guide = JSON.parse(localStorage.getItem('apercuGuide')); } catch (e) {}
+  } else if (idGuide && typeof supabaseClient !== 'undefined') {
+    const { data, error } = await supabaseClient
+      .from('guides')
+      .select('id, titre, categorie, resume, auteur_nom, vues, modules')
+      .eq('id', idGuide)
+      .eq('publie', true)
+      .maybeSingle();
+    if (!error && data) guide = Object.assign({}, data, { auteur: data.auteur_nom || 'Membre' });
+  }
+  // Un guide sans module ne peut pas s'afficher
+  if (guide && (!Array.isArray(guide.modules) || guide.modules.length === 0)) guide = null;
+}
 
-if (!guide) {
-  zoneIntrouvable.style.display = 'block';
-} else {
+chargerGuide().then(function () {
+  if (!guide) {
+    zoneIntrouvable.style.display = 'block';
+    return;
+  }
   zoneContenu.style.display = 'block';
   afficherEnteteGuide();
   construireSommaire();
   afficherModule(0);
-}
+});
+
 
 // --- 2. En-tête du guide (titre, catégorie, auteur, vues) ---
 function afficherEnteteGuide() {
@@ -203,17 +214,3 @@ document.getElementById('btn-precedent').addEventListener('click', function () {
 document.getElementById('btn-suivant').addEventListener('click', function () {
   if (guide && moduleActif < guide.modules.length - 1) afficherModule(moduleActif + 1);
 });
-
-
-// ==========================================================================
-// Pour brancher Supabase plus tard : remplace la recherche dans guidesDemo
-// (ligne "const guide = guidesDemo.find...") par une requête, puis lance
-// l'affichage une fois les données reçues :
-//
-//   const { data } = await supabaseClient
-//     .from('guides').select('*').eq('id', idGuide).single();
-//
-// (id deviendra un uuid : enlève alors le Number(...) autour de params.get('id')).
-// Pour compter les vues, ajoute ensuite une fonction SQL qui incrémente
-// la colonne "vues" à chaque ouverture — on le fera avec la page de statistiques.
-// ==========================================================================
