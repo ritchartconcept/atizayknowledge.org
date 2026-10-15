@@ -1,10 +1,10 @@
 :root {
-  --indigo: #1B2A4C;
-  --corail: #E63946;
-  --sable: #FAF3E7;
-  --or: #E9B44C;
+  --indigo: #24083E;
+  --corail: #EF4923;
+  --sable: #E9F4FC;
+  --or: #C4DA47;
   --encre: #1A1A1A;
-  --vert: #3A7D5C;
+  --vert: #C4DA47;
 }
 
 * {
@@ -44,7 +44,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 22px 0;
-  border-bottom: 1px solid #e8ddc8;
+  border-bottom: 1px solid #e4eeac;
 }
 
 .logo {
@@ -84,7 +84,7 @@ nav a:hover { color: var(--corail); }
 }
 
 .btn-theme:hover {
-  background: rgba(27,42,76,0.08);
+  background: var(--corail);
   transform: rotate(15deg);
 }
 
@@ -147,8 +147,8 @@ html[data-theme="dark"] .btn-theme .icone-soleil { display: block; }
 }
 
 .btn-principal:hover {
-  background: #c92f3b;
-  border-color: #c92f3b;
+  background: #EF4923;
+  border-color: #b6371b;
 }
 
 .btn-secondaire {
@@ -201,15 +201,15 @@ html[data-theme="dark"] .btn-theme .icone-soleil { display: block; }
 }
 
 .message.succes {
-  background: #e8f4ed;
-  border: 1px solid #a9cfb8;
-  color: #286342;
+  background: #f3f7e1;
+  border: 1px solid #cbd785;
+  color: #485019;
 }
 
 .message.erreur {
-  background: #fbe9eb;
-  border: 1px solid #e9aeb5;
-  color: #a62835;
+  background: #f7e3df;
+  border: 1px solid #ecb3a6;
+  color: #a23017;
 }
 
 /* =========================
@@ -332,7 +332,7 @@ html[data-theme="dark"] .btn-theme .icone-soleil { display: block; }
 .lien-discret:hover { color: var(--corail); }
 
 /* Quatre couleurs d'avatar, choisies selon l'identifiant du membre */
-.couleur-0 { background: #b8861f; }
+.couleur-0 { background: #c03a1c; }
 .couleur-1 { background: var(--indigo); }
 .couleur-2 { background: var(--corail); }
 .couleur-3 { background: var(--vert); }
@@ -634,24 +634,24 @@ footer {
 ========================= */
 
 html[data-theme="dark"] {
-  --sable: #14202E;
-  --encre: #F2ECDD;
-  --indigo: #6C8FC7;
+  --sable: #2F1C44;
+  --encre: #dde8f1;
+  --indigo: #c8d4ea;
 }
 
-html[data-theme="dark"] body { background: #0F1824; }
+html[data-theme="dark"] body { background: #2F1C44; }
 
 html[data-theme="dark"] header,
-html[data-theme="dark"] footer { border-color: #2C3A4A; }
+html[data-theme="dark"] footer { border-color: #463856; }
 
-html[data-theme="dark"] .profil-banniere { background: #1B2734; }
+html[data-theme="dark"] .profil-banniere { background: #160d20; }
 
 html[data-theme="dark"] .profil-carte,
 html[data-theme="dark"] .carte-edition,
 html[data-theme="dark"] .stat,
 html[data-theme="dark"] .guide-carte {
-  background: #1B2734;
-  border-color: #2C3A4A;
+  background: #20132f;
+  border-color: #3f324f;
 }
 
 html[data-theme="dark"] .profil-avatar { border-color: #1B2734; }
@@ -663,53 +663,53 @@ html[data-theme="dark"] .profil-avatar { color: #0F1824; }
 
 html[data-theme="dark"] .pastille-fondateur {
   background: var(--or);
-  color: #0F1824;
+  color: #28183a;
 }
 
 html[data-theme="dark"] .pastille-discipline {
-  background: #3a2f1a;
-  color: #e9b44c;
+  background: #394015;
+  color: #C4DA47;
 }
 
 html[data-theme="dark"] .pastille-visibilite {
-  background: #2C3A4A;
-  color: #B9B3A5;
+  background: #473759;
+  color: #9ba177;
 }
 
 html[data-theme="dark"] .pastille-visibilite.publique {
-  background: #1f3a2d;
-  color: #7fcf9f;
+  background: #31351c;
+  color: #c9d67f;
 }
 
 html[data-theme="dark"] .note-prive {
   background: #3a2f1a;
   border-color: #5c4a22;
-  color: #e9b44c;
+  color: #C4DA47;
 }
 
 html[data-theme="dark"] .champ input,
 html[data-theme="dark"] .champ select,
 html[data-theme="dark"] .champ textarea {
-  background: #14202E;
-  border-color: #394858;
+  background: #2d1d3f;
+  border-color: #443753;
   color: var(--encre);
 }
 
 html[data-theme="dark"] .case {
-  background: #14202E;
-  border-color: #394858;
+  background: #2d1d3f;
+  border-color: #473a56;
   color: #B9B3A5;
 }
 
 html[data-theme="dark"] .btn-secondaire {
-  background: #1B2734;
-  border-color: #394858;
+  background: #2d1d3f;
+  border-color: #413550;
   color: var(--encre);
 }
 
 html[data-theme="dark"] .btn-secondaire:hover {
   background: var(--indigo);
-  color: #0F1824;
+  color: #221333;
 }
 
 html[data-theme="dark"] .profil-meta,
@@ -721,9 +721,9 @@ html[data-theme="dark"] footer { color: #9ca8b5; }
 html[data-theme="dark"] .guides-vide { border-color: #394858; color: #9ca8b5; }
 
 html[data-theme="dark"] .message.succes {
-  background: #1f3a2d;
-  border-color: #2f5a44;
-  color: #7fcf9f;
+  background: #30331d;
+  border-color: #636b38;
+  color: #C4DA47;
 }
 
 html[data-theme="dark"] .message.erreur {
