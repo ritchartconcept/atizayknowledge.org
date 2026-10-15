@@ -1,271 +1,285 @@
 
-  :root {
-    --indigo: #1B2A4C;
-    --corail: #E63946;
-    --sable: #FAF3E7;
-    --or: #E9B44C;
-    --encre: #1A1A1A;
-    --vert: #3A7D5C;
-  }
+:root {
+  --indigo: #24083E;
+  --corail: #EF4923;
+  --sable: #E9F4FC;
+  --or: #C4DA47;
+  --encre: #1A1A1A;
+}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: 'Work Sans', sans-serif;
-    color: var(--encre);
-    background: var(--sable);
-    line-height: 1.6;
-  }
+body {
+  font-family: 'Work Sans', sans-serif;
+  color: var(--encre);
+  background: var(--sable);
+  line-height: 1.6;
+}
 
-  h1, h2, h3 {
-    font-family: 'Fraunces', serif;
-    line-height: 1.15;
-  }
+h1, h2, h3 {
+  font-family: 'Fraunces', serif;
+  line-height: 1.15;
+}
 
-  .wrap {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
 
-  /* Header */
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 22px 0;
-    border-bottom: 1px solid #e8ddc8;
-  }
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0;
+  border-bottom: 1px solid #e8ddc8;
+}
 
-  .logo {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--indigo);
-    text-decoration: none;
-  }
+.logo {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--indigo);
+  text-decoration: none;
+}
 
-  nav {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-  }
-
-  nav a {
-    color: var(--encre);
-    text-decoration: none;
-    font-size: 0.95rem;
-  }
-
-  nav a.actif {
-    color: var(--corail);
-    font-weight: 600;
-  }
-
-  .avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--indigo);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-  }
-
-  /* Bienvenue */
-  .bienvenue {
-    padding: 44px 0 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .bienvenue h1 {
-    font-size: 1.9rem;
-    color: var(--indigo);
-  }
-
-  .bienvenue p {
-    color: #555;
-    margin-top: 6px;
-  }
-
-  .badge-statut {
-    background: var(--or);
-    color: var(--indigo);
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding: 6px 14px;
-    border-radius: 20px;
-  }
-
-  .btn {
-    display: inline-block;
-    padding: 12px 22px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.92rem;
-  }
-
-  .btn-primary {
-    background: var(--corail);
-    color: white;
-  }
-
-  /* Stats */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    padding: 40px 0;
-  }
-
-  .stat-card {
-    background: white;
-    border: 1px solid #e8ddc8;
-    border-radius: 6px;
-    padding: 22px;
-  }
-
-  .stat-label {
-    font-size: 0.82rem;
-    color: #777;
-    margin-bottom: 6px;
-  }
-
-  .stat-valeur {
-    font-family: 'Fraunces', serif;
-    font-size: 1.7rem;
-    color: var(--indigo);
-  }
-
-  .stat-valeur.corail { color: var(--corail); }
-  .stat-valeur.vert { color: var(--vert); }
-
-  /* Sections */
-  section.bloc {
-    padding: 24px 0 48px;
-  }
-
-  .bloc-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  .bloc-header h2 {
-    font-size: 1.35rem;
-    color: var(--indigo);
-  }
-
-  .voir-tout {
-    color: var(--corail);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-  }
-
-  /* Table des guides */
-  .table-guides {
-    background: white;
-    border: 1px solid #e8ddc8;
-    border-radius: 6px;
-    overflow: hidden;
-  }
-
-  .ligne-guide {
-    display: grid;
-    grid-template-columns: 2.5fr 1fr 1fr 1fr;
-    align-items: center;
-    padding: 16px 22px;
-    border-bottom: 1px solid #f0e8d6;
-    font-size: 0.92rem;
-  }
-
-  .ligne-guide:last-child { border-bottom: none; }
-
-  .ligne-guide.entete {
-    background: var(--sable);
-    font-weight: 600;
-    color: #777;
-    font-size: 0.8rem;
-  }
-
-  .titre-guide {
-    font-weight: 500;
-    color: var(--encre);
-  }
-
-  .statut-pill {
-    display: inline-block;
-    padding: 3px 12px;
-    border-radius: 20px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    width: fit-content;
-  }
-
-  .statut-publie { background: #e2f0e8; color: var(--vert); }
-  .statut-attente { background: #fdf1de; color: #b5791a; }
-
-  /* Guides à explorer */
-  .cartes-explorer {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-
-  .carte-explorer {
-    background: white;
-    border: 1px solid #e8ddc8;
-    border-radius: 6px;
-    padding: 20px;
-  }
-
-  .cat-tag {
-    font-size: 0.78rem;
-    color: var(--corail);
-    font-weight: 600;
-  }
-
-  .carte-explorer h3 {
-    font-size: 1rem;
-    margin-top: 8px;
-    color: var(--encre);
-  }
-
-  /* Bouton de bascule dark mode */
-.btn-theme {
+nav {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  background: transparent;
-  border: 1.5px solid var(--indigo);
-  border-radius: 50%;
-  color: var(--indigo);
-  cursor: pointer;
+  gap: 28px;
+}
+
+nav a {
+  color: var(--encre);
+  text-decoration: none;
+  font-size: 0.95rem;
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
+nav a ::after {
+  transition: width 0.3s ease;
+  transform: translateY(-3px);
+}
+
+nav a:hover {
+  color: var(--corail);
+ }
+
+nav a.actif {
+  color: var(--corail);
+  font-weight: 600;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--indigo);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: width 0.3s ease;
+}
+
+.avatar :hover {
+  color: var(--corail);
+}
+
+/* Bienvenue */
+.bienvenue {
+  padding: 44px 0 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.bienvenue h1 {
+  font-size: 1.9rem;
+  color: var(--indigo);
+}
+
+.bienvenue p {
+  color: #555;
+  margin-top: 6px;
+}
+
+.badge-statut {
+  background: var(--or);
+  color: var(--indigo);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.btn-primary {
+  background: var(--corail);
+  color: white;
+}
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 40px 0;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid #e8ddc8;
+  border-radius: 6px;
+  padding: 22px;
+}
+
+.stat-label {
+  font-size: 0.82rem;
+  color: #777;
+  margin-bottom: 6px;
+}
+
+.stat-valeur {
+  font-family: 'Fraunces', serif;
+  font-size: 1.7rem;
+  color: var(--indigo);
+}
+
+.stat-valeur.corail { color: var(--corail); }
+.stat-valeur.vert { color: var(--vert); }
+
+/* Sections */
+section.bloc {
+  padding: 24px 0 48px;
+}
+
+.bloc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.bloc-header h2 {
+  font-size: 1.35rem;
+  color: var(--indigo);
+}
+
+.voir-tout {
+  color: var(--corail);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Table des guides */
+.table-guides {
+  background: white;
+  border: 1px solid #e8ddc8;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.ligne-guide {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 1fr 1fr;
+  align-items: center;
+  padding: 16px 22px;
+  border-bottom: 1px solid #f0e8d6;
+  font-size: 0.92rem;
+}
+
+.ligne-guide:last-child { border-bottom: none; }
+
+.ligne-guide.entete {
+  background: var(--sable);
+  font-weight: 600;
+  color: #777;
+  font-size: 0.8rem;
+}
+
+.titre-guide {
+  font-weight: 500;
+  color: var(--encre);
+}
+
+.statut-pill {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.statut-publie { background: #e2f0e8; color: var(--vert); }
+.statut-attente { background: #fdf1de; color: #b5791a; }
+
+/* Guides à explorer */
+.cartes-explorer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.carte-explorer {
+  background: white;
+  border: 1px solid #e8ddc8;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.cat-tag {
+  font-size: 0.78rem;
+  color: var(--corail);
+  font-weight: 600;
+}
+
+.carte-explorer h3 {
+  font-size: 1rem;
+  margin-top: 8px;
+  color: var(--encre);
+}
+
+/* Bouton de bascule dark mode */
+.btn-theme {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 38px;
+height: 38px;
+background: transparent;
+border: 1.5px solid var(--indigo);
+border-radius: 50%;
+color: var(--indigo);
+cursor: pointer;
+transition: background 0.2s ease, transform 0.2s ease;
+}
+
 .btn-theme:hover {
-  background: rgba(27,42,76,0.08);
-  transform: rotate(15deg);
+background: var(--corail);
+transform: rotate(15deg);
 }
 
 .btn-theme svg {
-  width: 19px;
-  height: 19px;
-  display: block;
+width: 19px;
+height: 19px;
+display: block;
 }
 
 /* Mode clair : on montre la lune, on cache le soleil */
@@ -275,66 +289,66 @@
 html[data-theme="dark"] .btn-theme .icone-lune { display: none; }
 html[data-theme="dark"] .btn-theme .icone-soleil { display: block; }
 
-  @media (max-width: 760px) {
-    .stats { grid-template-columns: 1fr 1fr; }
-    .cartes-explorer { grid-template-columns: 1fr; }
-    .ligne-guide { grid-template-columns: 2fr 1fr; }
-    .ligne-guide span:nth-child(3),
-    .ligne-guide span:nth-child(4) { display: none; }
-    nav a:not(.actif) { display: none; }
-  }
+@media (max-width: 760px) {
+  .stats { grid-template-columns: 1fr 1fr; }
+  .cartes-explorer { grid-template-columns: 1fr; }
+  .ligne-guide { grid-template-columns: 2fr 1fr; }
+  .ligne-guide span:nth-child(3),
+  .ligne-guide span:nth-child(4) { display: none; }
+  nav a:not(.actif) { display: none; }
+}
 
 /* ===== Dark mode ===== */
 html[data-theme="dark"] {
-  --sable: #14202E;
-  --encre: #F2ECDD;
-  --indigo: #6C8FC7;
+  --sable: #2F1C44;
+  --encre: #dde5ec;
+  --indigo: #acb5c4;
 }
 
 html[data-theme="dark"] body {
-  background: #0F1824;
+background: #2F1C44;
 }
 
 html[data-theme="dark"] header {
-  border-bottom-color: #2C3A4A;
+border-bottom-color: #3e2559;
 }
 
 html[data-theme="dark"] .stat-card,
 html[data-theme="dark"] .table-guides,
 html[data-theme="dark"] .carte-explorer {
-  background: #1B2734;
-  border-color: #2C3A4A;
+background: #2F1C44;
+border-color: #3e2559;
 }
 
 html[data-theme="dark"] .ligne-guide {
-  border-bottom-color: #2C3A4A;
+border-bottom-color: #4a3462;
 }
 
 html[data-theme="dark"] .ligne-guide.entete {
-  background: #14202E;
-  color: #9aa4b2;
+background: #2F1C44;
+color: #9aa4b2;
 }
 
 html[data-theme="dark"] .bienvenue p,
 html[data-theme="dark"] .stat-label {
-  color: #B9B3A5;
+color: #ced48d;
 }
 
 /* Textes foncés sur fonds clairs : on fixe la couleur pour qu'elle ne change pas */
 html[data-theme="dark"] .badge-statut {
-  color: #1B2A4C;
+color: #4b2d6a;
 }
 
 html[data-theme="dark"] .avatar {
-  color: #0F1824;
+color: #2F1C44;
 }
 
 html[data-theme="dark"] .statut-publie {
-  background: #1f3a2d;
-  color: #7fcf9f;
+background: #5e6733;
+color: #DEE497;
 }
 
 html[data-theme="dark"] .statut-attente {
-  background: #3a2f1a;
-  color: #e9b44c;
+background: #45481d;
+color: #DEE497;
 }
