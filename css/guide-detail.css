@@ -42,18 +42,13 @@ header {
   font-size: 1.25rem;
   color: var(--indigo);
   text-decoration: none;
+  cursor: pointer;
 }
 
 nav {
   display: flex;
   align-items: center;
   gap: 26px;
-}
-
-nav a {
-  color: var(--encre);
-  text-decoration: none;
-  font-size: 0.95rem;
 }
 
 nav a {
@@ -81,10 +76,8 @@ nav a.actif {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
   width: 38px;
   height: 38px;
-  padding: 0;
   background: transparent;
   border: 1.5px solid var(--indigo);
   border-radius: 50%;
@@ -99,25 +92,17 @@ nav a.actif {
 }
 
 .btn-theme svg {
-  display: block;
   width: 19px;
   height: 19px;
-  flex-shrink: 0;
-}
-
-/* Mode clair : lune visible, soleil masqué */
-.btn-theme .icone-soleil {
-  display: none;
-}
-
-/* Mode sombre : soleil visible, lune masquée */
-html[data-theme="dark"] .btn-theme .icone-lune {
-  display: none;
-}
-
-html[data-theme="dark"] .btn-theme .icone-soleil {
   display: block;
 }
+
+/* Mode clair : on montre la lune, on cache le soleil */
+.btn-theme .icone-soleil { display: none; }
+
+/* Mode sombre : on inverse */
+html[data-theme="dark"] .btn-theme .icone-lune { display: none; }
+html[data-theme="dark"] .btn-theme .icone-soleil { display: block; }
 
 .btn {
   display: inline-block;
@@ -332,14 +317,10 @@ html[data-theme="dark"] .btn-theme .icone-soleil {
 
 .bloc-texte {
   font-size: 1.02rem;
-  line-height: 1.8;
+  line-height: 1.75;
   color: #333;
-  margin: 0 auto 24px;
+  margin-bottom: 24px;
   max-width: 68ch;
-  width: 100%;
-  text-align: justify;
-  overflow-wrap: anywhere;
-  hyphens: auto;
 }
 
 .bloc-image {
@@ -433,53 +414,62 @@ html[data-theme="dark"] .bandeau-apercu {
   color: #555;
 }
 
-/* Mise en page éditoriale du contenu des guides */
-.module-intro,
-.bloc-titre,
-.bloc-soustitre,
-.bloc-image figcaption {
-  max-width: 68ch;
+/* Suivi de progression */
+.reprise {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 14px 18px;
+  background: #fdf1de;
+  border: 1px solid var(--or);
+  border-radius: 8px;
+  font-size: 0.92rem;
+  color: #6b5218;
+}
+
+.sommaire-liste button.fait::after {
+  content: "\2713";
   margin-left: auto;
-  margin-right: auto;
-  overflow-wrap: anywhere;
+  color: var(--vert);
+  font-weight: 700;
 }
 
-.module-intro {
-  text-align: justify;
-  line-height: 1.8;
-  margin-bottom: 24px;
+.sommaire-liste button.actif.fait::after { color: white; }
+
+.fin-guide {
+  margin-top: 20px;
+  padding: 14px 18px;
+  background: #e2f0e8;
+  border: 1px solid var(--vert);
+  border-radius: 8px;
+  color: #2d6347;
 }
 
-.bloc-titre,
-.bloc-soustitre {
-  text-align: left;
-}
+.fin-guide a { color: var(--vert); font-weight: 600; }
 
-.bloc-image,
-.bloc-video {
-  max-width: 100%;
-  min-width: 0;
-}
-
-.bloc-image img,
-.bloc-video iframe {
-  max-width: 100%;
-}
+html[data-theme="dark"] .reprise { background: #3a2f1a; color: #e9b44c; }
+html[data-theme="dark"] .fin-guide { background: #1f3a2d; border-color: #2f5a44; color: #7fcf9f; }
+html[data-theme="dark"] .fin-guide a { color: #7fcf9f; }
+html[data-theme="dark"] .sommaire-liste button.fait::after { color: #7fcf9f; }
+html[data-theme="dark"] .sommaire-liste button.actif.fait::after { color: #0F1824; }
 
 /* Dark mode */
 html[data-theme="dark"] {
-  --sable: #14202E;
-  --encre: #F2ECDD;
-  --indigo: #6C8FC7;
+  --sable: #2F1C44;
+  --encre: #dde8f1;
+  --indigo: #c8d4ea;
 }
 
 html[data-theme="dark"] body {
-  background: #0F1824;
+  background: #24083E;
 }
 
 html[data-theme="dark"] .guide-sommaire {
-  background: #1B2734;
-  border-color: #2C3A4A;
+  background: #31233d;
+  border-color: #392849;
 }
 
 html[data-theme="dark"] .bloc-texte {
@@ -487,16 +477,15 @@ html[data-theme="dark"] .bloc-texte {
 }
 
 html[data-theme="dark"] .progression {
-  background: #2C3A4A;
+  background: #4a385c;
 }
 
 html[data-theme="dark"] .sommaire-liste button.actif {
-  color: #0F1824;
+  color: #322341;
 }
 
 html[data-theme="dark"] .btn-theme {
   border-color: var(--sable);
-  color: var(--sable);
 }
 
 html[data-theme="dark"] .btn-secondary {
@@ -506,57 +495,11 @@ html[data-theme="dark"] .btn-secondary {
 
 @media (max-width: 860px) {
   .guide-layout {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 1fr;
     gap: 28px;
   }
-
   .guide-sommaire {
     position: static;
   }
-
-  .guide-module {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .bloc-texte,
-  .module-intro {
-    max-width: 100%;
-  }
-
-  nav a:not(.actif) {
-    display: none;
-  }
-}
-
-
-/* Prévention des débordements horizontaux */
-html,
-body {
-  max-width: 100%;
-  overflow-x: clip;
-}
-
-.guide-layout,
-.guide-module,
-.guide-sommaire,
-.guide-entete,
-.bloc-texte,
-.module-intro {
-  min-width: 0;
-}
-
-.guide-module {
-  overflow-wrap: anywhere;
-}
-
-.bloc-image img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
-.bloc-video {
-  width: 100%;
+  nav a:not(.actif) { display: none; }
 }
