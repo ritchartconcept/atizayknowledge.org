@@ -66,6 +66,22 @@ document.addEventListener("DOMContentLoaded", () => {
     lecteur.readAsDataURL(fichier);
   }
 
+  // Envoie l'image dans Supabase Storage et retourne son adresse publique
+  async function envoyerImage(dataUrl) {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (!session) throw new Error("Connecte-toi pour ajouter une image.");
+
+    const blob = await (await fetch(dataUrl)).blob();
+    const chemin = session.user.id + "/" + Date.now() + "-" + Math.random().toString(36).slice(2, 8) + ".jpg";
+
+    const { error } = await supabaseClient.storage
+      .from("guides-images")
+      .upload(chemin, blob, { contentType: "image/jpeg" });
+    if (error) throw error;
+
+    return supabaseClient.storage.from("guides-images").getPublicUrl(chemin).data.publicUrl;
+  }
+
   // Vérifie qu'un lien est bien YouTube ou Vimeo (retourne null sinon)
   function convertirEnUrlEmbed(url) {
     try {
@@ -308,9 +324,18 @@ document.addEventListener("DOMContentLoaded", () => {
     champFichier.addEventListener("change", () => {
       const fichier = champFichier.files[0];
       if (!fichier) return;
-      reduireImage(fichier, (src) => {
+      reduireImage(fichier, async (apercuLocal) => {
         champUrl.value = "";
-        definirImage(src);
+        bloc.dataset.src = "";               // pas encore envoyée
+        apercu.src = apercuLocal;            // aperçu immédiat
+        apercu.style.display = "block";
+        try {
+          definirImage(await envoyerImage(apercuLocal));
+        } catch (e) {
+          console.error(e);
+          apercu.style.display = "none";
+          afficherMessage("Envoi de l'image impossible : " + (e.message || "erreur inconnue"), "erreur");
+        }
       });
     });
 
