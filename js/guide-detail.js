@@ -35,6 +35,16 @@ chargerGuide().then(function () {
     return;
   }
   zoneContenu.style.display = 'block';
+
+  // Compte une vue par guide et par visite (pas en mode aperçu)
+  if (!modeApercu && typeof supabaseClient !== 'undefined') {
+    const cle = 'vu_' + idGuide;
+    if (!sessionStorage.getItem(cle)) {
+      sessionStorage.setItem(cle, '1');
+      supabaseClient.rpc('incrementer_vues', { p_guide_id: idGuide });
+      guide.vues = (guide.vues || 0) + 1;
+    }
+  }
   afficherEnteteGuide();
   construireSommaire();
   afficherModule(0);
