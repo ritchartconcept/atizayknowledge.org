@@ -1,0 +1,87 @@
+/* ==========================================================================
+   MENU BURGER (mobile) — à charger en DERNIER dans le <head> de chaque page
+   Le bouton est créé par js/menu.js : aucun HTML à ajouter dans le header.
+   Pour changer la largeur à partir de laquelle le menu se replie,
+   remplace 760px ici ET dans js/menu.js.
+   ========================================================================== */
+
+/* Sécurité générale : une image ou une vidéo ne dépasse jamais l'écran */
+img, video, iframe { max-width: 100%; }
+
+/* Le bouton burger : caché sur ordinateur */
+.burger {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: transparent;
+  border: 1.5px solid var(--indigo);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.burger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--indigo);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Les trois barres deviennent une croix quand le menu est ouvert */
+.burger.ouvert span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger.ouvert span:nth-child(2) { opacity: 0; }
+.burger.ouvert span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 760px) {
+
+  .burger { display: flex; }
+
+  header { position: relative; }
+
+  /* Le menu devient un panneau qui s'ouvre sous le header.
+     Les !important écrasent les règles "nav { display: none }" des autres fichiers CSS. */
+  header nav {
+    display: none !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 6px 0 10px;
+    background: var(--sable);
+    border: 1px solid #DDE496;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 12px 24px rgba(14, 14, 15, 0.12);
+  }
+
+  header nav.ouvert { display: flex !important; }
+
+  header nav a {
+    display: block !important;
+    margin: 0 !important;
+    padding: 14px 22px;
+    font-size: 1rem;
+  }
+
+  header nav a + a { border-top: 1px solid rgba(0, 0, 0, 0.06); }
+
+  /* Le bouton clair/sombre se place en bas du panneau */
+  header nav .btn-theme {
+    margin: 10px 22px 4px;
+    align-self: flex-start;
+  }
+}
+
+/* Mode sombre */
+html[data-theme="dark"] header nav { border-color: #17181a; box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4); }
+html[data-theme="dark"] header nav a + a { border-top-color: rgba(255, 255, 255, 0.08); }
